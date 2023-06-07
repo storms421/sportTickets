@@ -1,6 +1,7 @@
 import AdminAccess
 import CustomerAccess
 
+# Come back to simplify
 teams = ["Denver Broncos", "Denver Nuggets", "Colorado Avalanche", "Colorado Rapids", "Colorado Rockies"]
 seats = ["Courtside", "Mid Seats", "Upper Seats"]
 prices = [150.00, 100.00, 50.00]

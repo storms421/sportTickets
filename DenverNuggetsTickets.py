@@ -1,6 +1,7 @@
 import CalculationForTickets
 
 
+# This function will take care of all the purchasing and info for the Denver Nuggets
 def denver_nuggets_tickets(nuggets_seats, nuggets_prices):
 
     while True:
@@ -25,6 +26,7 @@ def denver_nuggets_tickets(nuggets_seats, nuggets_prices):
             print("Invalid Input")
 
 
+# Confirms if seat is correct (Make it simpler and more universal later)
 def correct_seats(seats, index):
     while True:
         print("You have selected " + str(seats[int(index) - 1]))
