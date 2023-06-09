@@ -14,6 +14,6 @@ def customer_access(teams_list, team_seats, team_prices):
     if team_selection_number == 1:
         print("Broncos")
     elif team_selection_number == 2:
-        DenverNuggetsTickets.denver_nuggets_tickets(team_seats, team_prices)
+        DenverNuggetsTickets.denver_nuggets_tickets(team_seats, team_prices, teams_list[team_selection_number - 1])
     else:
         print("Invalid Option!")

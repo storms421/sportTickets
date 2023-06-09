@@ -2,7 +2,7 @@ import CalculationForTickets
 
 
 # This function will take care of all the purchasing and info for the Denver Nuggets
-def denver_nuggets_tickets(nuggets_seats, nuggets_prices):
+def denver_nuggets_tickets(nuggets_seats, nuggets_prices, nuggets_team_name):
 
     while True:
         print("\nWelcome to the Denver Nuggets ticket selection!")
@@ -20,7 +20,8 @@ def denver_nuggets_tickets(nuggets_seats, nuggets_prices):
             if int(total_tickets) <= 4:
                 print("Great!")
                 total = nuggets_prices[int(seat_selection) - 1] * int(total_tickets)
-                CalculationForTickets.ticket_payment(total)
+                CalculationForTickets.ticket_payment(total, nuggets_seats[int(seat_selection) - 1], total_tickets,
+                                                     nuggets_team_name)
                 break
         else:
             print("Invalid Input")
