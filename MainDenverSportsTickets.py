@@ -7,6 +7,7 @@ seats = ["Courtside", "Mid Seats", "Upper Seats"]
 prices = [150.00, 100.00, 50.00]
 password = "7215"
 outer_escape = True
+team_selected = ""
 
 # Loops until admin/customer wants to leave
 while outer_escape:
@@ -16,7 +17,8 @@ while outer_escape:
     # If customer, go to purchase tickets for team
     if int(customer_read) == 1:
         print("")
-        CustomerAccess.customer_access(teams, seats, prices)  # Goes to customer file
+        team_selected = CustomerAccess.select_team(teams)  # Goes to Customer file
+        print(team_selected)
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
         print("")
