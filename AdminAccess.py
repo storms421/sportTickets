@@ -16,4 +16,4 @@ def admin_access(password):
 
 
 def sales_check():
-    print("Boop")
+    print("Welcome, Admin!")
