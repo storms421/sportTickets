@@ -3,8 +3,30 @@ import CustomerAccess
 
 # Come back to simplify
 teams = ["Denver Broncos", "Denver Nuggets", "Colorado Avalanche", "Colorado Rapids", "Colorado Rockies"]
-seats = ["Courtside", "Mid Seats", "Upper Seats"]
-prices = [150.00, 100.00, 50.00]
+
+# Start of teams dictionary
+teams_data = {"Denver Broncos": {
+    "Seats": ["Home Side", "Visitor Side", "Southside Field Goal", "Northside Field Goal"],
+    "Prices": {
+        "Home Side": 200.00,
+        "Visitor Side": 100.00,
+        "Southside Field Goal": 50.00,
+        "Northside Field Goal": 50.00
+    }
+},  # End of Denver Broncos
+
+    "Denver Nuggets": {
+        "Seats": ["Courtside", "Mid Seats", "Upper Seats"],
+        "Prices": {
+            "Courtside": 150.00,
+            "Mid Seats": 100.00,
+            "Upper Seats": 50.00
+        }
+
+    }  # End of Denver Nuggets
+
+}  # End of dictionary
+
 password = "7215"
 outer_escape = True
 team_selected = ""
@@ -17,7 +39,7 @@ while outer_escape:
     # If customer, go to purchase tickets for team
     if int(customer_read) == 1:
         print("")
-        team_selected = CustomerAccess.select_team(teams)  # Goes to Customer file
+        team_selected = CustomerAccess.select_team(teams_data)  # Goes to Customer file
         print(team_selected)
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
@@ -39,7 +61,3 @@ while outer_escape:
             outer_escape = True
         else:
             print("Invalid Input")
-
-
-
-
