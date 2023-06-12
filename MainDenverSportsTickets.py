@@ -5,25 +5,32 @@ import CustomerAccess
 teams = ["Denver Broncos", "Denver Nuggets", "Colorado Avalanche", "Colorado Rapids", "Colorado Rockies"]
 
 # Start of teams dictionary
-teams_data = {"Denver Broncos": {
-    "Seats": ["Home Side", "Visitor Side", "Southside Field Goal", "Northside Field Goal"],
-    "Prices": {
-        "Home Side": 200.00,
-        "Visitor Side": 100.00,
-        "Southside Field Goal": 50.00,
-        "Northside Field Goal": 50.00
-    }
-},  # End of Denver Broncos
+teams_data = {
+
+    "Denver Broncos": {
+        "Seats": ["Home Side", "Visitor Side", "Southside Field Goal", "Northside Field Goal"],
+        "Prices": [200.00, 100.00, 50.00, 50.00]
+    },  # End of Denver Broncos
 
     "Denver Nuggets": {
         "Seats": ["Courtside", "Mid Seats", "Upper Seats"],
-        "Prices": {
-            "Courtside": 150.00,
-            "Mid Seats": 100.00,
-            "Upper Seats": 50.00
-        }
+        "Prices": [150.00, 100.00, 50.00]
+    },  # End of Denver Nuggets
 
-    }  # End of Denver Nuggets
+    "Colorado Avalanches": {
+        "Seats": ["Team Side"],
+        "Prices": [100.00]
+    },  # End of Colorado Avalanches
+
+    "Colorado Rapids": {
+        "Seats": ["Goalside"],
+        "Prices": [50.00]
+    },  # End of Colorado Rapids
+
+    "Colorado Rockies": {
+        "Seats": [],
+        "Prices": []
+    }  # End of Colorado Rockies
 
 }  # End of dictionary
 
@@ -40,7 +47,7 @@ while outer_escape:
     if int(customer_read) == 1:
         print("")
         team_selected = CustomerAccess.select_team(teams_data)  # Goes to Customer file
-        print(team_selected)
+        CustomerAccess.team_information(team_selected, teams_data)
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
         print("")
@@ -51,7 +58,7 @@ while outer_escape:
     # Inner loop to for escaping program
     inner_escape = True
     while inner_escape:
-        leave = input("\nAre we ready to logout? \n(1)Yes \n(2)No\n")
+        leave = input("\nAre we ready to logout? \n(1) Yes \n(2) No\n")
 
         if int(leave) == 1:
             inner_escape = False  # Breaks inner loop since valid option
