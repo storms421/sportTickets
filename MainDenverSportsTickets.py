@@ -1,9 +1,6 @@
 import AdminAccess
 import CustomerAccess
 
-# Come back to simplify
-teams = ["Denver Broncos", "Denver Nuggets", "Colorado Avalanche", "Colorado Rapids", "Colorado Rockies"]
-
 # Start of teams dictionary
 teams_data = {
 
@@ -41,13 +38,13 @@ team_selected = ""
 # Loops until admin/customer wants to leave
 while outer_escape:
     print("Welcome to Colorado sports ticket service!")
-    customer_read = input("Are you a customer? \n(1)Yes \n(2)No\n")
+    customer_read = input("Are you a customer? \n(1) Yes \n(2) No\n")
 
     # If customer, go to purchase tickets for team
     if int(customer_read) == 1:
         print("")
         team_selected = CustomerAccess.select_team(teams_data)  # Goes to Customer file
-        CustomerAccess.team_information(team_selected, teams_data)
+        CustomerAccess.seat_selection(team_selected, teams_data)
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
         print("")

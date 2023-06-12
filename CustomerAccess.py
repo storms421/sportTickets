@@ -25,7 +25,7 @@ def select_team(teams_list):
 
 
 # This function is used to display all the team information and prompt for seat selection
-def team_information(team_index, teams_data_info):
+def seat_selection(team_index, teams_data_info):
     selected_team = list(teams_data_info.keys())[team_index - 1]  # Converts dictionary keys into a list and stores it
     team_details = teams_data_info[selected_team]  # Retrieves appropriate seats and prices and stores it
     print("\nWelcome to the " + selected_team + " ticket service!")
@@ -37,4 +37,17 @@ def team_information(team_index, teams_data_info):
     # Loop through the seatings and prices offered for selected team
     for position, index in enumerate(range(len(seats))):
         print("(" + str(position + 1) + ") " + seats[index] + " -> " + str(prices[index]))
+
+    seat_selection = input("Which seat level would you like to purchase or 0 to go back?: ")
+
+    # If user put in an integer, then convert to integer
+    if seat_selection.isdigit():
+        seat_number = int(seat_selection)
+        # If user put in a valid input, return selection integer
+        if 1 <= seat_number <= len(seats):
+            return seat_number
+        else:
+            print("Invalid selection!\n")
+    else:
+        print("Input must be a number!\n")
 
