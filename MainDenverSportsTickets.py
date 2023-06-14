@@ -31,6 +31,7 @@ teams_data = {
 
 }  # End of dictionary
 
+seat_packages = ["Single Ticket", "Double Ticket", "Triple Ticket", "Quadruple Ticket"]
 password = "7215"
 outer_escape = True
 team_selected = ""
@@ -44,7 +45,8 @@ while outer_escape:
     if int(customer_read) == 1:
         print("")
         team_selected = CustomerAccess.select_team(teams_data)  # Goes to Customer file
-        CustomerAccess.seat_selection(team_selected, teams_data)
+        seat_selected = CustomerAccess.seat_selection(team_selected, teams_data)
+        package_selected = CustomerAccess.ticket_quantity(seat_selected, seat_packages)
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
         print("")

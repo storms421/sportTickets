@@ -34,13 +34,28 @@ def seat_selection(team_index, teams_data_info):
         for position, index in enumerate(range(len(seats))):
             print("(" + str(position + 1) + ") " + seats[index] + " -> " + str(prices[index]))
 
-        user_seat_selection = input("Which seat level would you like to purchase or 0 to go back?: ")
+        user_seat_selection = input("\nWhich seat level would you like to purchase or 0 to go back?: ")
 
         seat_number = integer_validation(user_seat_selection, seats)
 
         # If valid selection, return number
         if seat_number is not None:
             return seat_number
+
+
+# This function grabs the package deal selected by user and returns to main
+def ticket_quantity(seat_price, package_deals):
+    while True:
+        print("\nBelow is our package deals!")
+        for position, index in enumerate(range(len(package_deals))):
+            print("(" + str(position + 1) + ") " + package_deals[index])
+
+        user_package_selected = input("Which package deal would you like to purchase?: ")
+
+        package_number = integer_validation(user_package_selected, package_deals)
+
+        if package_number is not None:
+            return package_number
 
 
 # This function checks for integer and range of selection validation
