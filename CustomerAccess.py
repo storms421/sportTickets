@@ -68,7 +68,7 @@ def integer_validation(user_input, length_of_list):
         if 1 <= input_number <= len(length_of_list):
             return input_number
         else:
-            print("Invalid selection!\n")
+            print("Invalid selection!")
     else:
-        print("Input must be a number!\n")
+        print("Input must be a number!")
 
