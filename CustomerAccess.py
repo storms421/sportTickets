@@ -12,40 +12,46 @@ def select_team(teams_list):
         team_selection_number = input(
             "\nWhich sports team are we looking to purchase tickets from? (Enter the number): ")
 
-        # If user put in an integer, then convert to integer
-        if team_selection_number.isdigit():
-            team_number = int(team_selection_number)
-            # If user put in a valid input, return selection integer
-            if 1 <= team_number <= len(teams_list):
-                return team_number
-            else:
-                print("Invalid selection!\n")
-        else:
-            print("Input must be a number!\n")
+        team_number = integer_validation(team_selection_number, teams_list)
+
+        # If valid selection, return number
+        if team_number is not None:
+            return team_number
 
 
 # This function is used to display all the team information and prompt for seat selection
 def seat_selection(team_index, teams_data_info):
-    selected_team = list(teams_data_info.keys())[team_index - 1]  # Converts dictionary keys into a list and stores it
-    team_details = teams_data_info[selected_team]  # Retrieves appropriate seats and prices and stores it
-    print("\nWelcome to the " + selected_team + " ticket service!")
+    while True:
+        selected_team = list(teams_data_info.keys())[team_index - 1]  # Converts dictionary keys into a list, stores it
+        team_details = teams_data_info[selected_team]  # Retrieves appropriate seats and prices and stores it
+        print("\nWelcome to the " + selected_team + " ticket service!")
 
-    # Pull the respected seats and prices and stores them
-    seats = team_details["Seats"]
-    prices = team_details["Prices"]
+        # Pull the respected seats and prices and stores them
+        seats = team_details["Seats"]
+        prices = team_details["Prices"]
 
-    # Loop through the seatings and prices offered for selected team
-    for position, index in enumerate(range(len(seats))):
-        print("(" + str(position + 1) + ") " + seats[index] + " -> " + str(prices[index]))
+        # Loop through the seating's and prices offered for selected team
+        for position, index in enumerate(range(len(seats))):
+            print("(" + str(position + 1) + ") " + seats[index] + " -> " + str(prices[index]))
 
-    seat_selection = input("Which seat level would you like to purchase or 0 to go back?: ")
+        user_seat_selection = input("Which seat level would you like to purchase or 0 to go back?: ")
 
-    # If user put in an integer, then convert to integer
-    if seat_selection.isdigit():
-        seat_number = int(seat_selection)
-        # If user put in a valid input, return selection integer
-        if 1 <= seat_number <= len(seats):
+        seat_number = integer_validation(user_seat_selection, seats)
+
+        # If valid selection, return number
+        if seat_number is not None:
             return seat_number
+
+
+# This function checks for integer and range of selection validation
+def integer_validation(user_input, length_of_list):
+
+    # If user puts in an integer, then convert to integer
+    if user_input.isdigit():
+        input_number = int(user_input)
+        # If user puts in valid input, return integer
+        if 1 <= input_number <= len(length_of_list):
+            return input_number
         else:
             print("Invalid selection!\n")
     else:
