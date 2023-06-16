@@ -1,21 +1,25 @@
 # This function will take payments from the customer to purchase tickets
-def ticket_payment(total_price, team_seats_name, total_tickets_to_purchase, nuggets_team_name_written):
+def ticket_payment(package_ticket, seat_section_selected, teams_info, team_index):
+    selected_team = list(teams_info.keys())[team_index - 1]  # Converts dictionary keys into a list, stores it
+    team_details = teams_info[selected_team]  # Retrieves appropriate seats and prices and stores it
+    seat_prices = team_details["Prices"][seat_section_selected - 1]  # Retrieves seat price based on selected seat
+    total_price = seat_prices * package_ticket  # Calculates the total
+
+    # While user inputs info, loop through
     while True:
-        print("Your total will be " + str(total_price))
+        print("\nYour total will be $" + str(total_price))
 
-        payment_code = input("Please enter your zip code to pay or 0 to cancel: ")
+        payment_code = input("Please enter your zip code to pay or 0 to cancel transaction: ")
 
-        # If 0 is entered, cancel payment and return to menu
-        if payment_code.isdigit() and int(payment_code) == 0:
-            print("\nTransaction Cancelled")
-            break
-        # If 5-digit zip code is entered, accept and go to receipt function
-        elif payment_code.isdigit() and len(payment_code) == 5:
-            take_receipt(team_seats_name, total_tickets_to_purchase, total_price, nuggets_team_name_written)
-            break
-        # If user inputs incorrectly, loop
+        if payment_code.isdigit():
+            if int(payment_code) == 0:
+                return None
+            elif len(str(payment_code)) == 5:
+                return payment_code
+            else:
+                print("Invalid Input")
         else:
-            print("Invalid Input")
+            print("Input must be a number!")
 
 
 # This function will see if the user would like their receipt or not!

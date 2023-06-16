@@ -1,5 +1,6 @@
 import AdminAccess
 import CustomerAccess
+import CalculationForTickets
 
 # Start of teams dictionary
 teams_data = {
@@ -47,6 +48,11 @@ while outer_escape:
         team_selected = CustomerAccess.select_team(teams_data)  # Goes to Customer file
         seat_selected = CustomerAccess.seat_selection(team_selected, teams_data)
         package_selected = CustomerAccess.ticket_quantity(seat_selected, seat_packages)
+        is_paid = CalculationForTickets.ticket_payment(package_selected, seat_selected, teams_data, team_selected)
+
+        if is_paid is not None:
+            print("Receipt Function Here")
+            
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
         print("")

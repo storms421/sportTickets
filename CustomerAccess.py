@@ -34,7 +34,7 @@ def seat_selection(team_index, teams_data_info):
         for position, index in enumerate(range(len(seats))):
             print("(" + str(position + 1) + ") " + seats[index] + " -> " + str(prices[index]))
 
-        user_seat_selection = input("\nWhich seat level would you like to purchase or 0 to go back?: ")
+        user_seat_selection = input("\nWhich seat level would you like to purchase? (Enter the number): ")
 
         seat_number = integer_validation(user_seat_selection, seats)
 
@@ -50,7 +50,7 @@ def ticket_quantity(seat_price, package_deals):
         for position, index in enumerate(range(len(package_deals))):
             print("(" + str(position + 1) + ") " + package_deals[index])
 
-        user_package_selected = input("Which package deal would you like to purchase?: ")
+        user_package_selected = input("Which package deal would you like to purchase? (Enter the number): ")
 
         package_number = integer_validation(user_package_selected, package_deals)
 
