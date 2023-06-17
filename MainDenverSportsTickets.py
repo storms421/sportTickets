@@ -34,13 +34,12 @@ teams_data = {
 
 seat_packages = ["Single Ticket", "Double Ticket", "Triple Ticket", "Quadruple Ticket"]
 password = "7215"
-outer_escape = True
 team_selected = ""
 
 # Loops until admin/customer wants to leave
-while outer_escape:
+while True:
     print("Welcome to Colorado sports ticket service!")
-    customer_read = input("Are you a customer? \n(1) Yes \n(2) No\n")
+    customer_read = CalculationForTickets.yes_or_no("Are you a customer? \n(1) Yes \n(2) No\n")
 
     # If customer, go to purchase tickets for team
     if int(customer_read) == 1:
@@ -51,25 +50,19 @@ while outer_escape:
         is_paid = CalculationForTickets.ticket_payment(package_selected, seat_selected, teams_data, team_selected)
 
         if is_paid is not None:
-            print("Receipt Function Here")
+            CalculationForTickets.take_receipt(package_selected, seat_selected, teams_data, team_selected)
             
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
         print("")
-        AdminAccess.admin_access(password)  # Goes to Admin file
-    else:
-        print("Invalid Input")
+        gained_access = AdminAccess.admin_access(password)  # Goes to Admin file
 
-    # Inner loop to for escaping program
-    inner_escape = True
-    while inner_escape:
-        leave = input("\nAre we ready to logout? \n(1) Yes \n(2) No\n")
+        if gained_access == 1:
+            AdminAccess.menu()
 
-        if int(leave) == 1:
-            inner_escape = False  # Breaks inner loop since valid option
-            outer_escape = False
-        elif int(leave) == 2:
-            inner_escape = False  # Breaks inner loop since valid option
-            outer_escape = True
-        else:
-            print("Invalid Input")
+    # Checks to see if program ends
+    escape = CalculationForTickets.yes_or_no("\nAre we ready to logout? \n(1) Yes \n(2) No\n")
+    print("")
+    # If yes is selected, exit program
+    if escape == 1:
+        break
