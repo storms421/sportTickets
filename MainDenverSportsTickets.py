@@ -17,18 +17,18 @@ teams_data = {
     },  # End of Denver Nuggets
 
     "Colorado Avalanches": {
-        "Seats": ["Team Side"],
-        "Prices": [100.00]
+        "Seats": ["Glass Seating", "Center Ice Seating", "Ends of Rink", "Second-Level Seating"],
+        "Prices": [200.00, 150.00, 100.00, 50.00]
     },  # End of Colorado Avalanches
 
     "Colorado Rapids": {
-        "Seats": ["Goalside"],
-        "Prices": [50.00]
+        "Seats": ["Centerfield Team Side", "Centerfield Non-Team Side", "Goalside", "Standing"],
+        "Prices": [80.00, 50.00, 30.00, 10.00]
     },  # End of Colorado Rapids
 
     "Colorado Rockies": {
-        "Seats": [],
-        "Prices": []
+        "Seats": ["Infield", "Rooftop", "Outfield", "Pavilion"],
+        "Prices": [110.00, 80.00, 50.00, 20.00]
     }  # End of Colorado Rockies
 
 }  # End of teams_data dictionary
