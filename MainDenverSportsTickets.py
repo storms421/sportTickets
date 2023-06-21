@@ -1,6 +1,7 @@
 import AdminAccess
 import CustomerAccess
 import CalculationForTickets
+import AdditionalFunctionSportTickets
 
 # Start of teams dictionary
 teams_data = {
@@ -30,16 +31,27 @@ teams_data = {
         "Prices": []
     }  # End of Colorado Rockies
 
-}  # End of dictionary
+}  # End of teams_data dictionary
+
+
+# Start of menu_functions
+# This dictionary will allow for functions to be called based on user selection (simplified if/elif/else)
+menu_functions = {
+    1: AdminAccess.sales_event,
+    2: AdminAccess.charity_event,
+    3: AdminAccess.seating_name_change,
+    4: AdminAccess.change_package_deals
+}  # End of menu_functions dictionary
 
 seat_packages = ["Single Ticket", "Double Ticket", "Triple Ticket", "Quadruple Ticket"]
+admin_options = ["Add Sales Event", "Add Charity Event", "Change Seating Names", "Change Package Deals", "Exit"]
 password = "7215"
 team_selected = ""
 
 # Loops until admin/customer wants to leave
 while True:
     print("Welcome to Colorado sports ticket service!")
-    customer_read = CalculationForTickets.yes_or_no("Are you a customer? \n(1) Yes \n(2) No\n")
+    customer_read = AdditionalFunctionSportTickets.yes_or_no("Are you a customer? \n(1) Yes \n(2) No\n")
 
     # If customer, go to purchase tickets for team
     if int(customer_read) == 1:
@@ -57,11 +69,22 @@ while True:
         print("")
         gained_access = AdminAccess.admin_access(password)  # Goes to Admin file
 
-        if gained_access == 1:
-            AdminAccess.menu()
+        while True:
+            if gained_access == 1:
+                menu_selection = AdminAccess.menu(admin_options)
+
+                # If the last option is picked (always exit), then leave admin section
+                if menu_selection == len(admin_options):
+                    break
+
+                # Grab selected function and store it
+                selected_option = menu_functions.get(menu_selection)
+                # Find menu option and go to function
+                if selected_option:
+                    selected_option()
 
     # Checks to see if program ends
-    escape = CalculationForTickets.yes_or_no("\nAre we ready to logout? \n(1) Yes \n(2) No\n")
+    escape = AdditionalFunctionSportTickets.yes_or_no("\nAre we ready to logout? \n(1) Yes \n(2) No\n")
     print("")
     # If yes is selected, exit program
     if escape == 1:

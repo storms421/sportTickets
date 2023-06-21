@@ -1,3 +1,6 @@
+import AdditionalFunctionSportTickets
+
+
 # This function will take payments from the customer to purchase tickets
 def ticket_payment(package_ticket, seat_section_selected, teams_info, team_index):
     selected_team = list(teams_info.keys())[team_index - 1]  # Converts dictionary keys into a list, stores it
@@ -31,7 +34,7 @@ def take_receipt(package_ticket, seat_section_selected, teams_info, team_index):
     total_price = seat_prices * package_ticket  # Calculates the total
 
     print("\nThank you for your purchase!")
-    receipt = yes_or_no("Would you like your receipt? \n(1) Yes \n(2) No\n")
+    receipt = AdditionalFunctionSportTickets.yes_or_no("Would you like your receipt? \n(1) Yes \n(2) No\n")
 
     # If user wants receipt, print it
     if receipt == 1:
@@ -41,20 +44,3 @@ def take_receipt(package_ticket, seat_section_selected, teams_info, team_index):
               "\n\tTotal: $" + str(total_price))
     else:
         print("Enjoy the game!")
-
-
-# This function is used for all yes and no prompts and returns the selection
-def yes_or_no(prompt):
-    while True:
-        is_yes = input(prompt)
-
-        if is_yes.isdigit():
-            is_yes = int(is_yes)
-            if is_yes == 1:
-                return is_yes
-            if is_yes == 2:
-                return is_yes
-            else:
-                print("Invalid Input")
-        else:
-            print("Please input an integer!")

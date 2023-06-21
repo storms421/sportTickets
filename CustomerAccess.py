@@ -1,3 +1,6 @@
+import AdditionalFunctionSportTickets
+
+
 # This function is used to select teams for purchasing tickets
 def select_team(teams_list):
     # While user is selecting, loop through teams
@@ -12,7 +15,7 @@ def select_team(teams_list):
         team_selection_number = input(
             "\nWhich sports team are we looking to purchase tickets from? (Enter the number): ")
 
-        team_number = integer_validation(team_selection_number, teams_list)
+        team_number = AdditionalFunctionSportTickets.integer_validation(team_selection_number, teams_list)
 
         # If valid selection, return number
         if team_number is not None:
@@ -36,7 +39,7 @@ def seat_selection(team_index, teams_data_info):
 
         user_seat_selection = input("\nWhich seat level would you like to purchase? (Enter the number): ")
 
-        seat_number = integer_validation(user_seat_selection, seats)
+        seat_number = AdditionalFunctionSportTickets.integer_validation(user_seat_selection, seats)
 
         # If valid selection, return number
         if seat_number is not None:
@@ -52,23 +55,7 @@ def ticket_quantity(seat_price, package_deals):
 
         user_package_selected = input("Which package deal would you like to purchase? (Enter the number): ")
 
-        package_number = integer_validation(user_package_selected, package_deals)
+        package_number = AdditionalFunctionSportTickets.integer_validation(user_package_selected, package_deals)
 
         if package_number is not None:
             return package_number
-
-
-# This function checks for integer and range of selection validation
-def integer_validation(user_input, length_of_list):
-
-    # If user puts in an integer, then convert to integer
-    if user_input.isdigit():
-        input_number = int(user_input)
-        # If user puts in valid input, return integer
-        if 1 <= input_number <= len(length_of_list):
-            return input_number
-        else:
-            print("Invalid selection!")
-    else:
-        print("Input must be a number!")
-

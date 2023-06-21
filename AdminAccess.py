@@ -1,4 +1,7 @@
-# Will improve this later
+import AdditionalFunctionSportTickets
+
+
+# This function will check if user is allowed access to admin profile
 def admin_access(password):
     i = 0
 
@@ -14,13 +17,21 @@ def admin_access(password):
             i += 1
 
 
-def menu():
-    print("\nWelcome, Admin!"
-          "\n\t(1) Add Sales Event"
-          "\n\t(2) Add Charity Event"
-          "\n\t(3) Change Seating Names"
-          "\n\t(4) Exit"
-          "\nWhat would you like to do?: ")
+# This function will display the admin menu and take selected option from menu and return
+def menu(admin_menu):
+
+    while True:
+        print("\nWelcome, Admin!")
+        for position, index in enumerate(range(len(admin_menu))):  # Displays menu options
+            print("(" + str(position + 1) + ") " + admin_menu[index])
+        admin_menu_selection = input("What would you like to do?: ")
+
+        # Take in valid menu selection
+        valid_menu_selection = AdditionalFunctionSportTickets.integer_validation(admin_menu_selection, admin_menu)
+
+        # Return valid selection
+        if valid_menu_selection is not None:
+            return valid_menu_selection
 
 
 def sales_event():
@@ -33,3 +44,7 @@ def charity_event():
 
 def seating_name_change():
     print("Change Seating Names!")
+
+
+def change_package_deals():
+    print("Change Package Deals!")
