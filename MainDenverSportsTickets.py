@@ -46,7 +46,6 @@ menu_functions = {
 seat_packages = ["Single Ticket", "Double Ticket", "Triple Ticket", "Quadruple Ticket"]
 admin_options = ["Add Sales Event", "Add Charity Event", "Change Seating Names", "Change Package Deals", "Exit"]
 password = "7215"
-team_selected = ""
 
 # Loops until admin/customer wants to leave
 while True:
@@ -81,7 +80,7 @@ while True:
                 selected_option = menu_functions.get(menu_selection)
                 # Find menu option and go to function
                 if selected_option:
-                    selected_option()
+                    selected_option(teams_data)
 
     # Checks to see if program ends
     escape = AdditionalFunctionSportTickets.yes_or_no("\nAre we ready to logout? \n(1) Yes \n(2) No\n")

@@ -16,6 +16,7 @@ def ticket_payment(package_ticket, seat_section_selected, teams_info, team_index
 
         if payment_code.isdigit():
             if int(payment_code) == 0:
+                print("\n***Transaction Cancelled***")
                 return None
             elif len(str(payment_code)) == 5:
                 return payment_code
@@ -44,3 +45,18 @@ def take_receipt(package_ticket, seat_section_selected, teams_info, team_index):
               "\n\tTotal: $" + str(total_price))
     else:
         print("Enjoy the game!")
+
+
+def percentage_calculator():
+    while True:
+        sales_percentage = input("How much are the tickets off today? (Enter an integer of 1-99): ")
+
+        if sales_percentage.isdigit():
+            sales_percentage = int(sales_percentage) / 100
+            if 0.01 <= sales_percentage <= 0.99:
+                return sales_percentage
+            else:
+                print("Input is out of range!")
+        else:
+            print("Input is not an integer!")
+
