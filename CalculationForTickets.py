@@ -10,7 +10,7 @@ def ticket_payment(package_ticket, seat_section_selected, teams_info, team_index
 
     # While user inputs info, loop through
     while True:
-        print("\nYour total will be $" + str(total_price))
+        print("\nYour total will be ${:.2f}".format(total_price))
 
         payment_code = input("Please enter your zip code to pay or 0 to cancel transaction: ")
 
@@ -27,7 +27,7 @@ def ticket_payment(package_ticket, seat_section_selected, teams_info, team_index
 
 
 # This function will see if the user would like their receipt or not!
-def take_receipt(package_ticket, seat_section_selected, teams_info, team_index):
+def take_receipt(package_ticket, seat_section_selected, teams_info, team_index, package_selected):
     selected_team = list(teams_info.keys())[team_index - 1]  # Converts dictionary keys into a list, stores it
     team_details = teams_info[selected_team]  # Retrieves appropriate seats and prices and stores it
     seat_prices = team_details["Prices"][seat_section_selected - 1]  # Retrieves seat price based on selected seat
@@ -39,20 +39,26 @@ def take_receipt(package_ticket, seat_section_selected, teams_info, team_index):
 
     # If user wants receipt, print it
     if receipt == 1:
-        print("Receipt"
+        print("\nReceipt"
               "\n\tTeam: " + selected_team +
               "\n\tSeats: " + seat_location +
-              "\n\tTotal: $" + str(total_price))
-    else:
-        print("Enjoy the game!")
+              "\n\tPackage: " + package_selected +
+              "\n\tTotal: ${:.2f}".format(total_price))
+        # If the admin added a charity event, let customer how much will be donated
+        if "Charity" in team_details:
+            charity_total = total_price * team_details["Charity"]
+            print("\tAmount Going to Charity: ${:.2f}".format(charity_total))
+
+    print("\nEnjoy the game!")
 
 
-def percentage_calculator():
+# This function checks for appropriate input for percentages
+def percentage_valid(prompt):
     while True:
-        sales_percentage = input("How much are the tickets off today? (Enter an integer of 1-99): ")
+        sales_percentage = input(prompt)
 
         if sales_percentage.isdigit():
-            sales_percentage = int(sales_percentage) / 100
+            sales_percentage = float(sales_percentage) / 100
             if 0.01 <= sales_percentage <= 0.99:
                 return sales_percentage
             else:

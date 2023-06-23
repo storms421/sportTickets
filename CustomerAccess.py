@@ -33,9 +33,19 @@ def seat_selection(team_index, teams_data_info):
         seats = team_details["Seats"]
         prices = team_details["Prices"]
 
+        # If there is a sale going on, let customer know
+        if "Percentage" in team_details:
+            sales_percentage = team_details["Percentage"]
+            print("\nAll tickets today are {:.0f}".format((sales_percentage * 100)) + "% off today!\n")
+        # If there is a charity going on, let customers know
+        if "Charity" in team_details:
+            charity_percentage = team_details["Charity"]
+            print("\nWe will be giving {:.0f}".format((charity_percentage * 100)) +
+                  "% of your purchase to charity today!\n")
+
         # Loop through the seating's and prices offered for selected team
         for position, index in enumerate(range(len(seats))):
-            print("(" + str(position + 1) + ") " + seats[index] + " -> " + str(prices[index]))
+            print("(" + str(position + 1) + ") " + seats[index] + " -> {:.2f}".format(prices[index]))
 
         user_seat_selection = input("\nWhich seat level would you like to purchase? (Enter the number): ")
 

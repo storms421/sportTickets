@@ -61,15 +61,17 @@ while True:
         is_paid = CalculationForTickets.ticket_payment(package_selected, seat_selected, teams_data, team_selected)
 
         if is_paid is not None:
-            CalculationForTickets.take_receipt(package_selected, seat_selected, teams_data, team_selected)
+            CalculationForTickets.take_receipt(package_selected, seat_selected, teams_data, team_selected,
+                                               seat_packages[package_selected - 1])
             
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
         print("")
         gained_access = AdminAccess.admin_access(password)  # Goes to Admin file
 
-        while True:
-            if gained_access == 1:
+        # If password is successful, go to admin menu
+        if gained_access == 1:
+            while True:
                 menu_selection = AdminAccess.menu(admin_options)
 
                 # If the last option is picked (always exit), then leave admin section
@@ -81,6 +83,8 @@ while True:
                 # Find menu option and go to function
                 if selected_option:
                     selected_option(teams_data)
+        else:
+            print("You have entered the password incorrectly too many times...")
 
     # Checks to see if program ends
     escape = AdditionalFunctionSportTickets.yes_or_no("\nAre we ready to logout? \n(1) Yes \n(2) No\n")
@@ -88,3 +92,15 @@ while True:
     # If yes is selected, exit program
     if escape == 1:
         break
+
+
+# Personal Notes:
+#   I want to add more to the admin function such as adding, subtracting, renaming, etc. Will require much more
+#   additional work though. The functions above are only looking to change names, add more packages, and edit prices
+#   based on percentages. Later on, I would like to add more functionality to the above functions such as changing
+#   prices of seat individually, renaming/getting rid of package deals, add/subtracting seat names, etc.
+
+#   Before leaving this project, I will need to add code to let customers know which teams have sales and charity
+#   events and then have their receipts tell them how much they have saved or helped contribute to a charity.
+#   Additionally, the code will need to have format specifiers and more polishing (lessen/simplify code in areas needed)
+#   to make the workload simpler when I return to the project later.
