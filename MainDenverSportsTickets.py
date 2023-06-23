@@ -82,7 +82,7 @@ while True:
                 selected_option = menu_functions.get(menu_selection)
                 # Find menu option and go to function
                 if selected_option:
-                    selected_option(teams_data)
+                    selected_option(teams_data, seat_packages)
         else:
             print("You have entered the password incorrectly too many times...")
 

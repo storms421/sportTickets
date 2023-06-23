@@ -20,7 +20,6 @@ def admin_access(password):
 
 # This function will display the admin menu and take selected option from menu and return
 def menu(admin_menu):
-
     while True:
         print("\nWelcome, Admin!")
         for position, index in enumerate(range(len(admin_menu))):  # Displays menu options
@@ -114,9 +113,27 @@ def charity_event(teams_info):
 
 # This function will change the seat names (rename)
 def seating_name_change(teams_info):
-    print("Change Seating Names!")
+    print("\nWelcome to Seating Names Editor!")
 
 
-# This function will change the package deals (add, subtract, rename)
-def change_package_deals(teams_info):
-    print("Change Package Deals!")
+# This function will change the package deals (add)
+def change_package_deals(teams_info, package_deals):
+    print("\nWelcome to Package Deals Editor!")
+
+    # Loop until admin is done entering in new package names
+    while True:
+        package_name = input("What would you like to name the new package deal or 0 to exit?: ")
+
+        # If package is 0, exit
+        if package_name == "0":
+            return
+        # If new name, ask if it's correct
+        else:
+            is_correct = AdditionalFunctionSportTickets.yes_or_no("Is the name package, "
+                                                                  + package_name + ", correct? \n(1) Yes \n(2) No\n")
+            # If name is correct, add to package list
+            if is_correct == 1:
+                package_deals.append(package_name)  # Adds to package list
+                print("Package deal has successfully been added...")
+                for position, index in enumerate(range(len(package_deals))):  # Displays newly added package
+                    print("(" + str(position + 1) + ") " + package_deals[index])
