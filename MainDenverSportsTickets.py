@@ -98,9 +98,5 @@ while True:
 #   I want to add more to the admin function such as adding, subtracting, renaming, etc. Will require much more
 #   additional work though. The functions above are only looking to change names, add more packages, and edit prices
 #   based on percentages. Later on, I would like to add more functionality to the above functions such as changing
-#   prices of seat individually, renaming/getting rid of package deals, add/subtracting seat names, etc.
-
-#   Before leaving this project, I will need to add code to let customers know which teams have sales and charity
-#   events and then have their receipts tell them how much they have saved or helped contribute to a charity.
-#   Additionally, the code will need to have format specifiers and more polishing (lessen/simplify code in areas needed)
-#   to make the workload simpler when I return to the project later.
+#   prices of seat individually, renaming/getting rid of package deals, add/subtracting seat names, etc. I will also
+#   want to add to the receipt that tells customers how much they have saved from their purchase.

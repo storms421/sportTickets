@@ -35,7 +35,7 @@ def menu(admin_menu):
 
 
 # This function will find the teams with a sale and edit their prices
-def sales_event(teams_info):
+def sales_event(teams_info, package_deals):
     while True:
         print("\nWelcome to Sales Event Editor!")
         for index, team_names in enumerate(teams_info.keys()):  # Displays teams
@@ -79,7 +79,7 @@ def sales_event(teams_info):
 
 
 # This function will grab the percentage going to charity
-def charity_event(teams_info):
+def charity_event(teams_info, package_deals):
     while True:
         print("\nWelcome to Charity Event Editor!")
         for index, team_names in enumerate(teams_info.keys()):  # Displays teams
@@ -112,8 +112,64 @@ def charity_event(teams_info):
 
 
 # This function will change the seat names (rename)
-def seating_name_change(teams_info):
-    print("\nWelcome to Seating Names Editor!")
+def seating_name_change(teams_info, package_deals):
+    while True:
+        print("\nWelcome to the Seat Editor!")
+        # Lists sport teams
+        for index, team_names in enumerate(teams_info.keys()):
+            print("(" + str(index + 1) + ") " + team_names)
+
+        team_selected = input("Which team needs seat editing or 0 to go back?: ")
+
+        # Return to admin menu
+        if team_selected == "0":
+            return
+
+        # Check for valid input by admin
+        team_index = AdditionalFunctionSportTickets.integer_validation(team_selected, teams_info)
+
+        if team_index is not None:
+            selected_team_name = list(teams_info.keys())[team_index - 1]  # Convert dictionary keys into list, stores it
+            team_details = teams_info[selected_team_name]  # Retrieves appropriate seats and prices and stores it
+            seats = team_details["Seats"]  # Pulls seats of selected sports team, stores it
+
+            while True:
+                print("\nHere is the list of seats for the " + selected_team_name + ":")
+                # Lists selected sports teams seating
+                for index, seat_names in enumerate(seats):
+                    print("(" + str(index + 1) + ") " + seat_names)
+
+                seat_selected = input("Which seat would you like to rename or 0 to go back?: ")
+
+                # Return to team selection
+                if seat_selected == "0":
+                    break
+
+                # Check for valid input by admin
+                seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, seats)
+
+                # If valid, move to rename process
+                if seat_index is not None:
+                    confirmed_rename = rename_seat(seat_index, seats)
+                    # Goes back
+                    if confirmed_rename == 1:
+                        break
+
+
+# This function allows admin to rename seats and then confirm if it's correct
+def rename_seat(seat_index_valid, teams_seats):
+    new_seat_name = input("\nPlease enter the new seating name: ")
+
+    is_correct = AdditionalFunctionSportTickets.yes_or_no("\nIs the seat name, " + new_seat_name +
+                                                          ", correct?: \n(1) Yes \n(2) No\n")
+
+    # If the seat name is correct, go back to start of seat editor
+    if is_correct == 1:
+        teams_seats[seat_index_valid - 1] = new_seat_name  # Replaces old seat with new seat
+        print("The renamed seat has successfully been updated...")
+        for index, seat_names in enumerate(teams_seats):  # Displays seats with newly named seat
+            print("(" + str(index + 1) + ") " + seat_names)
+        return 1  # Used to return to start of seat editor
 
 
 # This function will change the package deals (add)

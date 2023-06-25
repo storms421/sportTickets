@@ -20,9 +20,7 @@ def yes_or_no(prompt):
 
         if is_yes.isdigit():
             is_yes = int(is_yes)
-            if is_yes == 1:
-                return is_yes
-            if is_yes == 2:
+            if is_yes == 1 or is_yes == 2:  # 1 is always Yes and 2 is always No
                 return is_yes
             else:
                 print("Invalid Input")
