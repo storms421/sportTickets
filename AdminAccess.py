@@ -62,7 +62,6 @@ def sales_event(teams_info, package_deals):
             updated_prices = [round(price - (price * sales_percentage), 2) for price in prices]
             teams_info[team_name]["Prices"] = updated_prices  # Updates prices in team dictionary
             teams_info[team_name]["Percentage"] = sales_percentage  # Updates the dictionary with the sales percentage
-
             # Will need to figure out how to round here *********
             print("\nThe " + team_name + " got a sale of {:.0f}".format((sales_percentage * 100)) + "% off tickets:")
             print("******************************************")

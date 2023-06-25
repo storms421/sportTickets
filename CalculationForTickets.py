@@ -44,6 +44,11 @@ def take_receipt(package_ticket, seat_section_selected, teams_info, team_index, 
               "\n\tSeats: " + seat_location +
               "\n\tPackage: " + package_selected +
               "\n\tTotal: ${:.2f}".format(total_price))
+        if "Percentage" in team_details:
+            sales_percentage = team_details["Percentage"]  # Calls for percentage in dictionary, stores it
+            reversed_amount = (total_price / package_ticket) / (1 - sales_percentage)  # Reverses back to original price
+            saved_amount = (reversed_amount * package_ticket) - total_price  # Calculates amount saved
+            print("\tYou saved: ${:.2f}".format(saved_amount))
         # If the admin added a charity event, let customer how much will be donated
         if "Charity" in team_details:
             charity_total = total_price * team_details["Charity"]
