@@ -99,4 +99,4 @@ while True:
 #   additional work though. The functions above are only looking to change names, add more packages, and edit prices
 #   based on percentages. Later on, I would like to add more functionality to the above functions such as changing
 #   prices of seat individually, renaming/getting rid of package deals, add/subtracting seat names, etc. I will also
-#   want to add to the receipt that tells customers how much they have saved from their purchase.
+#   want to add to the receipt that tells customers how much they have saved from their purchase
