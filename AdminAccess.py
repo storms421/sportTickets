@@ -113,12 +113,12 @@ def charity_event(teams_info, package_deals):
 # This function will change the seat names (rename)
 def seating_name_change(teams_info, package_deals):
     while True:
-        print("\nWelcome to the Seat Editor!")
+        print("\nWelcome to the Seat Name Editor!")
         # Lists sport teams
         for index, team_names in enumerate(teams_info.keys()):
             print("(" + str(index + 1) + ") " + team_names)
 
-        team_selected = input("Which team needs seat editing or 0 to go back?: ")
+        team_selected = input("Which team needs a seat name change or 0 to go back?: ")
 
         # Return to admin menu
         if team_selected == "0":
@@ -192,3 +192,89 @@ def change_package_deals(teams_info, package_deals):
                 print("Package deal has successfully been added...")
                 for position, index in enumerate(range(len(package_deals))):  # Displays newly added package
                     print("(" + str(position + 1) + ") " + package_deals[index])
+
+
+# This function will let admin change specific seating prices
+def change_seating_prices(teams_info, package_deals):
+    while True:
+        print("\nWelcome to Seating Price Editor!")
+        # Lists sport teams
+        for index, team_names in enumerate(teams_info.keys()):
+            print("(" + str(index + 1) + ") " + team_names)
+
+        team_selected = input("Which team needs seat price change or 0 to go back?: ")
+
+        # Return to admin menu
+        if team_selected == "0":
+            return
+
+        # Check for valid input by admin
+        team_index = AdditionalFunctionSportTickets.integer_validation(team_selected, teams_info)
+
+        if team_index is not None:
+            selected_team_name = list(teams_info.keys())[team_index - 1]  # Convert dictionary keys into list, stores it
+            team_details = teams_info[selected_team_name]  # Retrieves appropriate seats and prices and stores it
+            seats = team_details["Seats"]  # Pulls seats of selected sports team, stores it
+            prices = team_details["Prices"]  # Retrieves price list
+
+            while True:
+                print("\nHere is the list of seats for the " + selected_team_name + ":")
+                # Lists selected sports teams seating and prices
+                for index, seat_names in enumerate(seats):
+                    print("(" + str(index + 1) + ") " + seat_names + " -> {:.2f}".format(prices[index]))
+
+                seat_selected = input("Which seat will need a price change or 0 to go back?: ")
+
+                # Return to team selection
+                if seat_selected == "0":
+                    break
+
+                # Check for valid input by admin
+                seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, seats)
+
+                # If valid, move to price change process
+                if seat_index is not None:
+                    seating_price_change_update(seats, seat_index, prices, teams_info, selected_team_name)
+                    break
+
+        # Check for if admin wants to modify more
+        exit_to_menu = AdditionalFunctionSportTickets.yes_or_no("Would you like to modify another "
+                                                                "seating price? \n(1) Yes \n(2) No\n")
+        # If admin is done, return to menu
+        if int(exit_to_menu) == 2:
+            break
+
+
+# This function will do the input, confirming, and updating of the new seating price
+def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, teams_info_inner, selected_team_name_inner):
+    while True:
+        price_update = input("Enter the new price for the seat " + seats_inner[seat_index_inner - 1] +
+                             " or 0 to go back: ")
+
+        # Return to team selection
+        if price_update == "0":
+            break
+
+        if price_update.isdigit():
+            price_update = int(price_update)
+            if price_update > 0:
+                is_confirmed = AdditionalFunctionSportTickets.yes_or_no(
+                    "The price $" + "{:.2f}".format(prices_inner[seat_index_inner - 1])
+                    + " for the seat " + seats_inner[seat_index_inner - 1] +
+                    " will be updated to the price $" +
+                    "{:.2f}".format(price_update) +
+                    ". Is this correct? \n(1) Yes \n(2) No\n")
+
+                # If seat is confirmed, update
+                if int(is_confirmed) == 1:
+                    prices_inner[seat_index_inner - 1] = price_update
+                    teams_info_inner[selected_team_name_inner]["Prices"] = prices_inner
+                    print("The seating price has successfully been updated...")
+                    # Displays all seats with new seating price updated
+                    for index, seat_names in enumerate(seats_inner):
+                        print("(" + str(index + 1) + ") " + seat_names + " -> {:.2f}".format(prices_inner[index]))
+                    break
+            else:
+                print("Invalid Input")
+        else:
+            print("Input must be a number!")

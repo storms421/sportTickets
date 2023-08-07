@@ -40,11 +40,13 @@ menu_functions = {
     1: AdminAccess.sales_event,
     2: AdminAccess.charity_event,
     3: AdminAccess.seating_name_change,
-    4: AdminAccess.change_package_deals
+    4: AdminAccess.change_package_deals,
+    5: AdminAccess.change_seating_prices
 }  # End of menu_functions dictionary
 
 seat_packages = ["Single Ticket", "Double Ticket", "Triple Ticket", "Quadruple Ticket"]
-admin_options = ["Add Sales Event", "Add Charity Event", "Change Seating Names", "Change Package Deals", "Exit"]
+admin_options = ["Add Sales Event", "Add Charity Event", "Change Seating Names", "Change Package Deals",
+                 "Change Seating Prices", "Exit"]
 password = "7215"
 
 # Loops until admin/customer wants to leave
