@@ -196,6 +196,7 @@ def change_package_deals(teams_info, package_deals):
 
 # This function will let admin change specific seating prices
 def change_seating_prices(teams_info, package_deals):
+    seat_selected = 0  # Initializing (needed to use outside of loop as well)
     while True:
         print("\nWelcome to Seating Price Editor!")
         # Lists sport teams
@@ -234,19 +235,25 @@ def change_seating_prices(teams_info, package_deals):
 
                 # If valid, move to price change process
                 if seat_index is not None:
-                    seating_price_change_update(seats, seat_index, prices, teams_info, selected_team_name)
-                    break
+                    is_price_changed = seating_price_change_update(seats, seat_index, prices, teams_info,
+                                                                   selected_team_name)
+                    # If price was updated, break
+                    if is_price_changed == 1:
+                        break
 
-        # Check for if admin wants to modify more
-        exit_to_menu = AdditionalFunctionSportTickets.yes_or_no("Would you like to modify another "
-                                                                "seating price? \n(1) Yes \n(2) No\n")
-        # If admin is done, return to menu
-        if int(exit_to_menu) == 2:
-            break
+        # If user updated a price, ask if they want to modify more
+        if seat_selected != "0":
+            # Check for if admin wants to modify more
+            exit_to_menu = AdditionalFunctionSportTickets.yes_or_no("\nWould you like to modify another "
+                                                                    "seating price? \n(1) Yes \n(2) No\n")
+            # If admin is done, return to menu
+            if int(exit_to_menu) == 2:
+                break
 
 
 # This function will do the input, confirming, and updating of the new seating price
-def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, teams_info_inner, selected_team_name_inner):
+def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, teams_info_inner,
+                                selected_team_name_inner):
     while True:
         price_update = input("Enter the new price for the seat " + seats_inner[seat_index_inner - 1] +
                              " or 0 to go back: ")
@@ -257,7 +264,7 @@ def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, tea
 
         if price_update.isdigit():
             price_update = int(price_update)
-            if price_update > 0:
+            if price_update > 0:  # If price is greater than 0, ask to confirm price
                 is_confirmed = AdditionalFunctionSportTickets.yes_or_no(
                     "The price $" + "{:.2f}".format(prices_inner[seat_index_inner - 1])
                     + " for the seat " + seats_inner[seat_index_inner - 1] +
@@ -267,13 +274,13 @@ def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, tea
 
                 # If seat is confirmed, update
                 if int(is_confirmed) == 1:
-                    prices_inner[seat_index_inner - 1] = price_update
-                    teams_info_inner[selected_team_name_inner]["Prices"] = prices_inner
+                    prices_inner[seat_index_inner - 1] = price_update  # Updates the price in the index selected
+                    teams_info_inner[selected_team_name_inner]["Prices"] = prices_inner  # Updates the price in dict.
                     print("The seating price has successfully been updated...")
                     # Displays all seats with new seating price updated
                     for index, seat_names in enumerate(seats_inner):
                         print("(" + str(index + 1) + ") " + seat_names + " -> {:.2f}".format(prices_inner[index]))
-                    break
+                    return 1
             else:
                 print("Invalid Input")
         else:
