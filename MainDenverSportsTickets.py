@@ -40,13 +40,14 @@ menu_functions = {
     1: AdminAccess.sales_event,
     2: AdminAccess.charity_event,
     3: AdminAccess.seating_name_change,
-    4: AdminAccess.change_package_deals,
-    5: AdminAccess.change_seating_prices
+    4: AdminAccess.change_seating_prices,
+    5: AdminAccess.change_package_deals,
+    6: AdminAccess.view_teams_info
 }  # End of menu_functions dictionary
 
 seat_packages = ["Single Ticket", "Double Ticket", "Triple Ticket", "Quadruple Ticket"]
-admin_options = ["Add Sales Event", "Add Charity Event", "Change Seating Names", "Change Package Deals",
-                 "Change Seating Prices", "Exit"]
+admin_options = ["Add Sales Event", "Add Charity Event", "Edit Seating Names", "Edit Seating Prices",
+                 "Edit Package Deals", "View Teams Info", "Exit"]
 password = "7215"
 
 # Loops until admin/customer wants to leave
@@ -94,11 +95,3 @@ while True:
     # If yes is selected, exit program
     if escape == 1:
         break
-
-
-# Personal Notes:
-#   I want to add more to the admin function such as adding, subtracting, renaming, etc. Will require much more
-#   additional work though. The functions above are only looking to change names, add more packages, and edit prices
-#   based on percentages. Later on, I would like to add more functionality to the above functions such as changing
-#   prices of seat individually, renaming/getting rid of package deals, add/subtracting seat names, etc. I will also
-#   want to add to the receipt that tells customers how much they have saved from their purchase
