@@ -39,14 +39,15 @@ teams_data = {
 menu_functions = {
     1: AdminAccess.sales_event,
     2: AdminAccess.charity_event,
-    3: AdminAccess.seating_name_change,
-    4: AdminAccess.change_seating_prices,
-    5: AdminAccess.change_package_deals,
-    6: AdminAccess.view_teams_info
+    3: AdminAccess.team_editor,
+    4: AdminAccess.seating_name_change,
+    5: AdminAccess.change_seating_prices,
+    6: AdminAccess.change_package_deals,
+    7: AdminAccess.view_teams_info
 }  # End of menu_functions dictionary
 
 seat_packages = ["Single Ticket", "Double Ticket", "Triple Ticket", "Quadruple Ticket"]
-admin_options = ["Add Sales Event", "Add Charity Event", "Edit Seating Names", "Edit Seating Prices",
+admin_options = ["Add Sales Event", "Add Charity Event", "Edit Team Names", "Edit Seating Names", "Edit Seating Prices",
                  "Edit Package Deals", "View Teams Info", "Exit"]
 password = "7215"
 

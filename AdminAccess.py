@@ -4,10 +4,24 @@ import AdditionalAdminFunctions
 
 # Submenu for seating editing
 submenu_functions_seats = {
-        1: AdditionalAdminFunctions.add_seats,
-        2: AdditionalAdminFunctions.delete_seats,
-        3: AdditionalAdminFunctions.rename_seats
+    1: AdditionalAdminFunctions.add_seats,
+    2: AdditionalAdminFunctions.delete_seats,
+    3: AdditionalAdminFunctions.rename_seats
 }  # End of submenu_functions_seats dictionary
+
+# Submenu for package editing
+submenu_functions_packages = {
+    1: AdditionalAdminFunctions.add_package,
+    2: AdditionalAdminFunctions.delete_package,
+    3: AdditionalAdminFunctions.rename_package
+}  # End of submenu_functions_packages dictionary
+
+# Submenu for package editing
+submenu_functions_team_names = {
+    1: AdditionalAdminFunctions.add_team,
+    2: AdditionalAdminFunctions.remove_team,
+    3: AdditionalAdminFunctions.rename_team
+}  # End of submenu_functions_packages dictionary
 
 
 # This function will check if user is allowed access to admin profile
@@ -118,6 +132,39 @@ def charity_event(teams_info, package_deals):
                 break
 
 
+# This function will edit team names whether it's to add, delete, or rename
+def team_editor(teams_info, package_deals):
+    while True:
+        print("\nWelcome to the Team Name Editor!")
+        submenu_selection = input("(1) Add a Team\n(2) Delete a Team\n(3) Rename a Team\n"
+                                  "What would you like to do or 0 to go back?: ")
+
+        if submenu_selection.isdigit():  # Checks if admin put in an integer
+            submenu_selection = int(submenu_selection)
+
+            # Exit admin service if 0 is entered
+            if submenu_selection == 0:
+                break
+
+            # Grab selected function and store it
+            selected_option = submenu_functions_team_names.get(int(submenu_selection))
+
+            # Find menu option and go to function
+            if selected_option:
+                change_occurred = selected_option(teams_info)
+
+                if change_occurred == 1:
+                    exit_to_menu = AdditionalFunctionSportTickets.yes_or_no("\nAre you done with team name "
+                                                                            "settings?\n(1) Yes \n(2) No\n")
+                    # If admin is done, return to menu
+                    if int(exit_to_menu) == 1:
+                        break
+            else:
+                print("\nInvalid Selection")
+        else:
+            print("\nInput must be an integer!")
+
+
 # This function will change the seat names (rename)
 def seating_name_change(teams_info, package_deals):
     change_occurred = 0
@@ -148,25 +195,32 @@ def seating_name_change(teams_info, package_deals):
                 submenu_selection = input("(1) Add a Seat\n(2) Delete a Seat\n(3) Rename a Seat\n"
                                           "What would you like to do or 0 to go back?: ")
 
-                # Exit admin service if 0 is entered
-                if int(submenu_selection) == 0:
-                    break
+                if submenu_selection.isdigit():  # Checks if admin put in an integer
+                    submenu_selection = int(submenu_selection)
 
-                # Grab selected function and store it
-                selected_option = submenu_functions_seats.get(int(submenu_selection))
+                    # Exit admin service if 0 is entered
+                    if submenu_selection == 0:
+                        break
 
-                # Find menu option and go to function
-                if selected_option:
-                    change_occurred = selected_option(selected_team_name, seats, prices)
+                    # Grab selected function and store it
+                    selected_option = submenu_functions_seats.get(int(submenu_selection))
 
-                    if change_occurred == 1:
-                        exit_to_menu = AdditionalFunctionSportTickets.yes_or_no("\nWould you like to modify more "
-                                                                                "seats? \n(1) Yes \n(2) No\n")
-                        # If admin is done, return to menu
-                        if int(exit_to_menu) == 2:
-                            return
-                        else:
-                            break
+                    # Find menu option and go to function
+                    if selected_option:
+                        change_occurred = selected_option(selected_team_name, seats, prices)
+
+                        if change_occurred == 1:
+                            exit_to_menu = AdditionalFunctionSportTickets.yes_or_no("\nWould you like to modify more "
+                                                                                    "seats? \n(1) Yes \n(2) No\n")
+                            # If admin is done, return to menu
+                            if int(exit_to_menu) == 2:
+                                return
+                            else:
+                                break
+                    else:
+                        print("\nInvalid Selection")
+                else:
+                    print("\nInput must be an integer!")
 
 
 # This function will let admin change specific seating prices
@@ -229,26 +283,46 @@ def change_seating_prices(teams_info, package_deals):
 
 # This function will change the package deals (add)
 def change_package_deals(teams_info, package_deals):
-    print("\nWelcome to Package Deals Editor!")
-
-    # Loop until admin is done entering in new package names
     while True:
-        package_name = input("What would you like to name the new package deal or 0 to go back to the main menu?: ")
+        print("\nWelcome to Package Deals Editor!")
+        submenu_selection = input("(1) Add a Package\n(2) Delete a Package\n(3) Rename a Package\n"
+                                  "What would you like to do or 0 to go back to the main menu?: ")
 
-        # If package is 0, exit
-        if package_name == "0":
-            return
-        # If new name, ask if it's correct
+        if submenu_selection.isdigit():  # Checks if admin put in an integer
+            submenu_selection = int(submenu_selection)
+
+            # Exit admin service if 0 is entered
+            if int(submenu_selection) == 0:
+                break
+
+            # Grab selected function and store it
+            selected_option = submenu_functions_packages.get(int(submenu_selection))
+
+            # Find menu option and go to function
+            if selected_option:
+                change_occurred = selected_option(package_deals)
+
+                if change_occurred == 1:
+                    exit_to_menu = AdditionalFunctionSportTickets.yes_or_no("\nWould you like to edit any more in the "
+                                                                            "package setting? \n(1) Yes \n(2) No\n")
+                    # If admin is done, return to menu
+                    if exit_to_menu == 2:
+                        return
+            else:
+                print("\nInvalid Selection")
         else:
-            is_correct = AdditionalFunctionSportTickets.yes_or_no("Is the name package, "
-                                                                  + package_name + ", correct? \n(1) Yes \n(2) No\n")
-            # If name is correct, add to package list
-            if is_correct == 1:
-                package_deals.append(package_name)  # Adds to package list
-                print("Package deal has successfully been added...")
-                for position, index in enumerate(range(len(package_deals))):  # Displays newly added package
-                    print("(" + str(position + 1) + ") " + package_deals[index])
+            print("\nInput must be an integer!")
 
 
+# This function allows admin to see everything in the system for sports teams, seating, and pricing
 def view_teams_info(teams_info, package_deals):
-    print("Currently out of order")
+    print("\nHere's the list of the current teams seating and pricing:")
+    for team_name, team_details in teams_info.items():  # Loops through teams
+        print(team_name)
+        seats = team_details["Seats"]  # Pulls seats of selected sports team, stores it
+        prices = team_details["Prices"]  # Retrieves price list
+        for index, seat_names in enumerate(seats):  # Loops through selected sports teams seating and prices
+            print("\t(" + str(index + 1) + ") " + seat_names + " -> {:.2f}".format(prices[index]))
+
+# Note for inputs. Make sure they get validated as digits when needed. If not done, error will be thrown. Check through
+# all of the code
