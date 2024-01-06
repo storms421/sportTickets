@@ -325,4 +325,4 @@ def view_teams_info(teams_info, package_deals):
             print("\t(" + str(index + 1) + ") " + seat_names + " -> {:.2f}".format(prices[index]))
 
 # Note for inputs. Make sure they get validated as digits when needed. If not done, error will be thrown. Check through
-# all of the code
+# all the code
