@@ -207,7 +207,7 @@ def seating_name_change(teams_info, package_deals):
 
                     # Find menu option and go to function
                     if selected_option:
-                        change_occurred = selected_option(selected_team_name, seats, prices)
+                        change_occurred = selected_option(selected_team_name, seats, prices, 1)
 
                         if change_occurred == 1:
                             exit_to_menu = AdditionalFunctionSportTickets.yes_or_no("\nWould you like to modify more "
@@ -322,7 +322,7 @@ def view_teams_info(teams_info, package_deals):
         seats = team_details["Seats"]  # Pulls seats of selected sports team, stores it
         prices = team_details["Prices"]  # Retrieves price list
         for index, seat_names in enumerate(seats):  # Loops through selected sports teams seating and prices
-            print("\t(" + str(index + 1) + ") " + seat_names + " -> {:.2f}".format(prices[index]))
+            print("\t(" + str(index + 1) + ") " + seat_names + " -> ${:.2f}".format(prices[index]))
 
 # Note for inputs. Make sure they get validated as digits when needed. If not done, error will be thrown. Check through
 # all the code

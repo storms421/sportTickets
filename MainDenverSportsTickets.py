@@ -6,7 +6,9 @@ import AdditionalFunctionSportTickets
 # Start of teams dictionary
 teams_data = {
 
+    # Keys
     "Denver Broncos": {
+        # Nested Keys
         "Seats": ["Home Side", "Visitor Side", "Southside Field Goal", "Northside Field Goal"],
         "Prices": [200.00, 100.00, 50.00, 50.00]
     },  # End of Denver Broncos

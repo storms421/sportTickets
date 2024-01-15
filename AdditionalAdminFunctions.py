@@ -4,7 +4,43 @@ from collections import OrderedDict
 
 # This function will add a team to the dictionary
 def add_team(teams_info):
-    print("Out of order")
+    while True:
+        new_team = input("\nEnter the new team name or 0 to go back: ")
+
+        # If user enters 0, go back to submenu
+        if new_team == "0":
+            break
+
+        # Confirm team name is correct
+        confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new team name\n\t" + new_team +
+                                                                 "\nIs this correct?: \n(1) Yes \n(2) No\n")
+
+        # If confirmed, add team with seat and price sections
+        if confirmed_add == 1:
+            teams_info[new_team] = {"Seats": [], "Prices": []}
+
+            print("Let's add some seat and pricing options for this team.\n")
+            # Loop for valid input
+            while True:
+                seat_count = input("Enter how many seats will we be added to the new team or 0 to exit: ")
+
+                if seat_count == "0":
+                    return 1
+
+                # Get valid amount of seats to add
+                if seat_count.isdigit() and 0 < int(seat_count) <= 10:
+                    team_details = teams_info[new_team]  # Retrieves appropriate seats and prices and store it
+                    seats = team_details["Seats"]  # Pulls seats of selected sports team, stores it
+                    prices = team_details["Prices"]
+
+                    # Reuses function to get a set amount of seats and their prices to add to new team
+                    add_seats(team_details, seats, prices, int(seat_count))
+
+                    # Return to ask if more to modify
+                    return 1
+
+                else:
+                    print("Invalid Input. Try again.\n")
 
 
 # This function will remove a team from the dictionary
@@ -79,28 +115,34 @@ def rename_team(teams_info):
 
 #######################################################################################################################
 # This function will add seats to the sports team dictionary for customer
-def add_seats(selected_team_name, seats, prices):
+def add_seats(selected_team_name, seats, prices, amount):
     while True:
-        new_seat = input("\nEnter the new seat name or 0 to go back: ")
+        new_seat = input("\nEnter the new seat name or 0 to stop: ")
 
         # If user enters 0, go back to submenu
         if new_seat == "0":
             break
 
         new_price = input("Enter the price for the new seat: ")
+        new_price = float(new_price)  # Convert to float
 
         confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new seat and price:\n\t" + new_seat +
-                                                                 " -> " + new_price + "\nIs this correct?: "
-                                                                                      "\n(1) Yes \n(2) No\n")
+                                                                 " -> ${:.2f}".format(new_price) +
+                                                                 "\nIs this correct?: \n(1) Yes \n(2) No\n")
         # If confirmed name and prices, add to end of dictionary list
         if confirmed_add == 1:
             seats.append(new_seat)
-            prices.append(new_seat)
-            return 1  # Returns to ask admin if they would like to modify more
+            prices.append(new_price)
+
+            # Decrement seat counter for amount to add
+            amount = amount - 1
+
+            if amount < 1:
+                return 1  # Returns to ask admin if they would like to modify more
 
 
 # This function will remove seats from the sports team dictionary for the customers
-def delete_seats(selected_team_name, seats, prices):
+def delete_seats(selected_team_name, seats, prices, amount):
     while True:
         print("\nHere is the list of seats for the " + selected_team_name + ":")
         # Lists selected sports teams seating
@@ -135,7 +177,7 @@ def delete_seats(selected_team_name, seats, prices):
 
 
 # This function will rename the seats for the sports team dictionary for the customer
-def rename_seats(selected_team_name, seats, prices):
+def rename_seats(selected_team_name, seats, prices, amount):
     while True:
         print("\nHere is the list of seats for the " + selected_team_name + ":")
         # Lists selected sports teams seating
@@ -278,7 +320,7 @@ def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, tea
             break
 
         if price_update.isdigit():
-            price_update = int(price_update)
+            price_update = float(price_update)
             if price_update > 0:  # If price is greater than 0, ask to confirm price
                 is_confirmed = AdditionalFunctionSportTickets.yes_or_no(
                     "The price $" + "{:.2f}".format(prices_inner[seat_index_inner - 1])
