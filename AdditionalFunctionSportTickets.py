@@ -1,5 +1,5 @@
 # This function checks for integer and range of selection validation
-def integer_validation(user_input, length_of_list):
+def integer_validation_array(user_input, length_of_list):
 
     # If user puts in an integer, then convert to integer
     if user_input.isdigit():

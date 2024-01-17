@@ -45,11 +45,11 @@ def menu(admin_menu):
     while True:
         print("\nWelcome, Admin!")
         for position, index in enumerate(range(len(admin_menu))):  # Displays menu options
-            print("(" + str(position + 1) + ") " + admin_menu[index])
+            print("(%d) %s" % ((position + 1), admin_menu[index]))
         admin_menu_selection = input("What would you like to do?: ")
 
         # Take in valid menu selection
-        valid_menu_selection = AdditionalFunctionSportTickets.integer_validation(admin_menu_selection, admin_menu)
+        valid_menu_selection = AdditionalFunctionSportTickets.integer_validation_array(admin_menu_selection, admin_menu)
 
         # Return valid selection
         if valid_menu_selection is not None:
@@ -69,7 +69,7 @@ def sales_event(teams_info, package_deals):
             break
 
         # Checks for valid input
-        valid_team_selection = AdditionalFunctionSportTickets.integer_validation(team_selected, teams_info)
+        valid_team_selection = AdditionalFunctionSportTickets.integer_validation_array(team_selected, teams_info)
 
         # Once input is valid, ask for sales percentage
         if valid_team_selection is not None:
@@ -85,11 +85,11 @@ def sales_event(teams_info, package_deals):
             teams_info[team_name]["Prices"] = updated_prices  # Updates prices in team dictionary
             teams_info[team_name]["Percentage"] = sales_percentage  # Updates the dictionary with the sales percentage
             # Will need to figure out how to round here *********
-            print("\nThe " + team_name + " got a sale of {:.0f}".format((sales_percentage * 100)) + "% off tickets:")
+            print("\nThe %s got a sale of %.0f%% off tickets: " % (team_name, (sales_percentage * 100)))
             print("******************************************")
             # Loop through the seating's and new prices offered for selected team
             for position, index in enumerate(range(len(seats))):
-                print("\t(" + str(position + 1) + ") " + seats[index] + " -> {:.2f}".format(updated_prices[index]))
+                print("\t(%d) %s -> $%.2f" % ((position + 1), seats[index], updated_prices[index]))
             print("******************************************")
             print("Prices have been updated successfully...\n")
 
@@ -104,7 +104,7 @@ def charity_event(teams_info, package_deals):
     while True:
         print("\nWelcome to Charity Event Editor!")
         for index, team_names in enumerate(teams_info.keys()):  # Displays teams
-            print("(" + str(index + 1) + ") " + team_names)
+            print("(%d) %s" % ((index + 1), team_names))
         team_selected = input("Which team has a charity going on or 0 to go back to the main menu?: ")
 
         # Return to menu
@@ -112,7 +112,7 @@ def charity_event(teams_info, package_deals):
             break
 
         # Checks for valid input
-        valid_team_selection = AdditionalFunctionSportTickets.integer_validation(team_selected, teams_info)
+        valid_team_selection = AdditionalFunctionSportTickets.integer_validation_array(team_selected, teams_info)
 
         # Once input is valid, ask for charity percentage
         if valid_team_selection is not None:
@@ -124,7 +124,7 @@ def charity_event(teams_info, package_deals):
             teams_info[team_name]["Charity"] = charity_percentage  # Updates the dictionary with the charity percentage
 
             print("\nCharity event has been successfully added to the " + team_name)
-            print("The customer's total sale will have {:.0f}".format((charity_percentage * 100)) + "% go to charity\n")
+            print("The customer's total sale will have %.0f%% go to charity\n" % (charity_percentage * 100))
 
             # Leave to menu if answering No
             leave = AdditionalFunctionSportTickets.yes_or_no("Any more charity events? \n(1) Yes \n(2) No\n")
@@ -173,7 +173,7 @@ def seating_name_change(teams_info, package_deals):
         print("Here's the list of teams:")
         # Lists sport teams
         for index, team_names in enumerate(teams_info.keys()):
-            print("(" + str(index + 1) + ") " + team_names)
+            print("(%d) %s" % ((index + 1), team_names))
         team_selected = input("Which team needs a seat edit or 0 to go back to the main menu?: ")
 
         # Return to admin menu
@@ -181,7 +181,7 @@ def seating_name_change(teams_info, package_deals):
             break
 
         # Check for valid input by admin
-        team_index = AdditionalFunctionSportTickets.integer_validation(team_selected, teams_info)
+        team_index = AdditionalFunctionSportTickets.integer_validation_array(team_selected, teams_info)
 
         if team_index is not None:
             # Convert dictionary keys into list, stores it
@@ -191,7 +191,7 @@ def seating_name_change(teams_info, package_deals):
             prices = team_details["Prices"]
 
             while True:
-                print("\nHere are the seat editing options for the " + selected_team_name + ":")
+                print("\nHere are the seat editing options for the %s:" % selected_team_name)
                 submenu_selection = input("(1) Add a Seat\n(2) Delete a Seat\n(3) Rename a Seat\n"
                                           "What would you like to do or 0 to go back?: ")
 
@@ -239,7 +239,7 @@ def change_seating_prices(teams_info, package_deals):
             return
 
         # Check for valid input by admin
-        team_index = AdditionalFunctionSportTickets.integer_validation(team_selected, teams_info)
+        team_index = AdditionalFunctionSportTickets.integer_validation_array(team_selected, teams_info)
 
         if team_index is not None:
             selected_team_name = list(teams_info.keys())[team_index - 1]  # Convert dictionary keys into list, stores it
@@ -251,7 +251,7 @@ def change_seating_prices(teams_info, package_deals):
                 print("\nHere is the list of seats for the " + selected_team_name + ":")
                 # Lists selected sports teams seating and prices
                 for index, seat_names in enumerate(seats):
-                    print("(" + str(index + 1) + ") " + seat_names + " -> {:.2f}".format(prices[index]))
+                    print("(%d) %s -> $%.2f" % ((index + 1), seat_names, prices[index]))
 
                 seat_selected = input("Which seat will need a price change or 0 to go back?: ")
 
@@ -260,7 +260,7 @@ def change_seating_prices(teams_info, package_deals):
                     break
 
                 # Check for valid input by admin
-                seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, seats)
+                seat_index = AdditionalFunctionSportTickets.integer_validation_array(seat_selected, seats)
 
                 # If valid, move to price change process
                 if seat_index is not None:
@@ -322,7 +322,7 @@ def view_teams_info(teams_info, package_deals):
         seats = team_details["Seats"]  # Pulls seats of selected sports team, stores it
         prices = team_details["Prices"]  # Retrieves price list
         for index, seat_names in enumerate(seats):  # Loops through selected sports teams seating and prices
-            print("\t(" + str(index + 1) + ") " + seat_names + " -> ${:.2f}".format(prices[index]))
+            print("\t(%d) %s -> $%.2f" % ((index + 1), seat_names, prices[index]))
 
 # Note for inputs. Make sure they get validated as digits when needed. If not done, error will be thrown. Check through
 # all the code

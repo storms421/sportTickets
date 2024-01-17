@@ -14,24 +14,34 @@ teams_data = {
     },  # End of Denver Broncos
 
     "Denver Nuggets": {
-        "Seats": ["Courtside", "Mid Seats", "Upper Seats"],
+        "Seats": ["Court side", "Mid Seats", "Upper Seats"],
         "Prices": [150.00, 100.00, 50.00]
     },  # End of Denver Nuggets
 
     "Colorado Avalanches": {
-        "Seats": ["Glass Seating", "Center Ice Seating", "Ends of Rink", "Second-Level Seating"],
+        "Seats": ["Glass Seating", "Suite/Club", "Corners of Rink", "Nose Bleeds Seating"],
         "Prices": [200.00, 150.00, 100.00, 50.00]
     },  # End of Colorado Avalanches
 
     "Colorado Rapids": {
-        "Seats": ["Centerfield Team Side", "Centerfield Non-Team Side", "Goalside", "Standing"],
+        "Seats": ["Center field Team Side", "Center field Non-Team Side", "Goal side", "Standing"],
         "Prices": [80.00, 50.00, 30.00, 10.00]
     },  # End of Colorado Rapids
 
     "Colorado Rockies": {
         "Seats": ["Infield", "Rooftop", "Outfield", "Pavilion"],
         "Prices": [110.00, 80.00, 50.00, 20.00]
-    }  # End of Colorado Rockies
+    },  # End of Colorado Rockies
+
+    "Colorado Mammoths": {
+        "Seats": ["Lower Level", "Suite/Club", "Nosebleeds", "Standing"],
+        "Prices": [45.00, 35.00, 20.00, 10.00]
+    },  # End of Colorado Mammoths
+
+    "Colorado Switchbacks": {
+        "Seats": ["Center Field Team Side", "Center field Non-Team Side", "Goal side", "Standing"],
+        "Prices": [30.00, 25.00, 15.00, 5.00]
+    }  # End of Colorado Switchbacks
 
 }  # End of teams_data dictionary
 
@@ -90,7 +100,8 @@ while True:
                 if selected_option:
                     selected_option(teams_data, seat_packages)
         else:
-            print("You have entered the password incorrectly too many times...")
+            print("You have entered the password incorrectly too many times. Goodbye >:(")
+            break
 
     # Checks to see if program ends
     escape = AdditionalFunctionSportTickets.yes_or_no("\nAre we ready to logout? \n(1) Yes \n(2) No\n")

@@ -12,8 +12,8 @@ def add_team(teams_info):
             break
 
         # Confirm team name is correct
-        confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new team name\n\t" + new_team +
-                                                                 "\nIs this correct?: \n(1) Yes \n(2) No\n")
+        confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new team name\n\t %s "
+                                                                 "\nIs this correct?: \n(1) Yes \n(2) No\n" % new_team)
 
         # If confirmed, add team with seat and price sections
         if confirmed_add == 1:
@@ -31,7 +31,7 @@ def add_team(teams_info):
                 if seat_count.isdigit() and 0 < int(seat_count) <= 10:
                     team_details = teams_info[new_team]  # Retrieves appropriate seats and prices and store it
                     seats = team_details["Seats"]  # Pulls seats of selected sports team, stores it
-                    prices = team_details["Prices"]
+                    prices = team_details["Prices"]  # Pulls prices of selected sports team, stores it
 
                     # Reuses function to get a set amount of seats and their prices to add to new team
                     add_seats(team_details, seats, prices, int(seat_count))
@@ -55,13 +55,13 @@ def remove_team(teams_info):
             break
 
         # Validates Selection
-        selected_team_delete = AdditionalFunctionSportTickets.integer_validation(selected_team_delete, teams_info)
+        selected_team_delete = AdditionalFunctionSportTickets.integer_validation_array(selected_team_delete, teams_info)
 
         if selected_team_delete is not None:
             team_names = list(teams_info.keys())  # Stores teams as a list
             name_of_team = team_names[selected_team_delete - 1]  # Grabs selected team
             confirmed_deletion = AdditionalFunctionSportTickets.yes_or_no("\nAre you sure you want to delete the team, "
-                                                                          + name_of_team + "?: \n(1) Yes \n(2) No\n")
+                                                                          "%s?: \n(1) Yes \n(2) No\n" % name_of_team)
 
             # If confirmed, delete team
             if confirmed_deletion == 1:
@@ -85,7 +85,7 @@ def rename_team(teams_info):
             break
 
         # Validates selection
-        selected_team_rename = AdditionalFunctionSportTickets.integer_validation(selected_team_rename, teams_info)
+        selected_team_rename = AdditionalFunctionSportTickets.integer_validation_array(selected_team_rename, teams_info)
 
         if selected_team_rename is not None:
             new_team_name = input("Please enter the new team name: ")
@@ -126,9 +126,9 @@ def add_seats(selected_team_name, seats, prices, amount):
         new_price = input("Enter the price for the new seat: ")
         new_price = float(new_price)  # Convert to float
 
-        confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new seat and price:\n\t" + new_seat +
-                                                                 " -> ${:.2f}".format(new_price) +
-                                                                 "\nIs this correct?: \n(1) Yes \n(2) No\n")
+        confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new seat and price:\n\t %s -> %.2f"
+                                                                 "\nIs this correct?: \n(1) Yes \n(2) No\n" %
+                                                                 (new_seat, new_price))
         # If confirmed name and prices, add to end of dictionary list
         if confirmed_add == 1:
             seats.append(new_seat)
@@ -156,13 +156,13 @@ def delete_seats(selected_team_name, seats, prices, amount):
             break
 
         # Check for valid input by admin
-        seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, seats)
+        seat_index = AdditionalFunctionSportTickets.integer_validation_array(seat_selected, seats)
 
         # If valid, move to rename process
         if seat_index is not None:
             seat_name = seats[int(seat_index) - 1]
             confirmed_deletion = AdditionalFunctionSportTickets.yes_or_no("\nAre you sure you want to delete the seat, "
-                                                                          + seat_name + "?: \n(1) Yes \n(2) No\n")
+                                                                          "%s?: \n(1) Yes \n(2) No\n" % seat_name)
 
             # If the seat name is confirmed, then delete the specific seat
             if confirmed_deletion == 1:
@@ -179,7 +179,7 @@ def delete_seats(selected_team_name, seats, prices, amount):
 # This function will rename the seats for the sports team dictionary for the customer
 def rename_seats(selected_team_name, seats, prices, amount):
     while True:
-        print("\nHere is the list of seats for the " + selected_team_name + ":")
+        print("\nHere is the list of seats for the %s:" % selected_team_name)
         # Lists selected sports teams seating
         for index, seat_names in enumerate(seats):
             print("(" + str(index + 1) + ") " + seat_names)
@@ -191,7 +191,7 @@ def rename_seats(selected_team_name, seats, prices, amount):
             break
 
         # Check for valid input by admin
-        seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, seats)
+        seat_index = AdditionalFunctionSportTickets.integer_validation_array(seat_selected, seats)
 
         # If valid, move to rename process
         if seat_index is not None:
@@ -211,8 +211,8 @@ def add_package(package_deals):
         if package_name == "0":
             break
 
-        is_correct = AdditionalFunctionSportTickets.yes_or_no("\nIs the name package, "
-                                                              + package_name + ", correct? \n(1) Yes \n(2) No\n")
+        is_correct = AdditionalFunctionSportTickets.yes_or_no("\nIs the name package, %s, correct? \n(1) Yes \n(2) No\n"
+                                                              % package_name)
         # If name is correct, add to package list
         if is_correct == 1:
             package_deals.append(package_name)  # Adds to package list
@@ -239,9 +239,8 @@ def delete_package(package_deals):
 
             if package_index < len(package_deals):
                 confirmed_deletion = AdditionalFunctionSportTickets.yes_or_no("\nAre you sure you want to delete the "
-                                                                              "package deal, " +
-                                                                              package_deals[package_index - 1]
-                                                                              + "? \n(1) Yes \n(2) No\n")
+                                                                              "package deal, %s? \n(1) Yes \n(2) No\n" %
+                                                                              package_deals[package_index - 1])
 
                 if confirmed_deletion == 1:
                     del package_deals[package_index - 1]  # Deletes Package Deal
@@ -274,10 +273,10 @@ def rename_package(package_deals):
                 new_package_deal_name = input("\nEnter the new name for the package deal: ")
 
                 confirmed_rename = AdditionalFunctionSportTickets.yes_or_no("\nAre you sure you want to rename the "
-                                                                            "package deal, " +
-                                                                            package_deals[package_index - 1]
-                                                                            + ", to " + new_package_deal_name +
-                                                                            "? \n(1) Yes \n(2) No\n")
+                                                                            "package deal, %s, to %s? "
+                                                                            "\n(1) Yes \n(2) No\n" %
+                                                                            (package_deals[package_index - 1],
+                                                                             new_package_deal_name))
 
                 if confirmed_rename == 1:
                     package_deals[package_index - 1] = new_package_deal_name  # Renames Package Deal
@@ -296,8 +295,8 @@ def rename_package(package_deals):
 def changing_seat_name(seat_index_valid, teams_seats):
     new_seat_name = input("\nPlease enter the new seating name: ")
 
-    is_correct = AdditionalFunctionSportTickets.yes_or_no("\nIs the seat name, " + new_seat_name +
-                                                          ", correct?: \n(1) Yes \n(2) No\n")
+    is_correct = AdditionalFunctionSportTickets.yes_or_no("\nIs the seat name, %s, correct?: \n(1) Yes \n(2) No\n" %
+                                                          new_seat_name)
 
     # If the seat name is correct, go back to start of seat editor
     if is_correct == 1:
@@ -312,8 +311,7 @@ def changing_seat_name(seat_index_valid, teams_seats):
 def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, teams_info_inner,
                                 selected_team_name_inner):
     while True:
-        price_update = input("Enter the new price for the seat " + seats_inner[seat_index_inner - 1] +
-                             " or 0 to go back: ")
+        price_update = input("Enter the new price for the seat %s or 0 to go back: " % seats_inner[seat_index_inner-1])
 
         # Return to team selection
         if price_update == "0":
@@ -323,11 +321,8 @@ def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, tea
             price_update = float(price_update)
             if price_update > 0:  # If price is greater than 0, ask to confirm price
                 is_confirmed = AdditionalFunctionSportTickets.yes_or_no(
-                    "The price $" + "{:.2f}".format(prices_inner[seat_index_inner - 1])
-                    + " for the seat " + seats_inner[seat_index_inner - 1] +
-                    " will be updated to the price $" +
-                    "{:.2f}".format(price_update) +
-                    ". Is this correct? \n(1) Yes \n(2) No\n")
+                    "The price $%.2f for the seat %s will be updated to the price $%.2f. Is this correct? \n(1) Yes "
+                    "\n(2) No\n" % (prices_inner[seat_index_inner - 1], seats_inner[seat_index_inner-1], price_update))
 
                 # If seat is confirmed, update
                 if int(is_confirmed) == 1:
