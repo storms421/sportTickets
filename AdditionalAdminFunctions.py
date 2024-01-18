@@ -48,14 +48,14 @@ def remove_team(teams_info):
     while True:
         print("\nHere is the list of teams currently in the system:")
         for index, team_name in enumerate(teams_info.keys()):  # Loops through teams
-            print("(" + str(index + 1) + ") " + team_name)
+            print("(%d) %s" % ((index + 1), team_name))
         selected_team_delete = input("Which sports team would you like to delete or 0 to go back: ")
 
         if int(selected_team_delete) == 0:
             break
 
         # Validates Selection
-        selected_team_delete = AdditionalFunctionSportTickets.integer_validation_array(selected_team_delete, teams_info)
+        selected_team_delete = AdditionalFunctionSportTickets.integer_validation(selected_team_delete, len(teams_info))
 
         if selected_team_delete is not None:
             team_names = list(teams_info.keys())  # Stores teams as a list
@@ -68,7 +68,7 @@ def remove_team(teams_info):
                 del teams_info[name_of_team]  # Deletes team and all its data
                 print("\nThe team has successfully been deleted...")
                 for index, team_name in enumerate(teams_info.keys()):  # Loops through updated teams list
-                    print("(" + str(index + 1) + ") " + team_name)
+                    print("(%d) %s" % ((index + 1), team_name))
                 return 1
 
 
@@ -77,7 +77,7 @@ def rename_team(teams_info):
     while True:
         print("\nHere is the list of teams currently in the system:")
         for index, team_name in enumerate(teams_info.keys()):  # Loops through teams
-            print("(" + str(index + 1) + ") " + team_name)
+            print("(%d) %s" % ((index + 1), team_name))
         selected_team_rename = input("Which sports team would you like to rename or 0 to go back: ")
 
         # Goes back to submenu
@@ -85,15 +85,15 @@ def rename_team(teams_info):
             break
 
         # Validates selection
-        selected_team_rename = AdditionalFunctionSportTickets.integer_validation_array(selected_team_rename, teams_info)
+        selected_team_rename = AdditionalFunctionSportTickets.integer_validation(selected_team_rename, len(teams_info))
 
         if selected_team_rename is not None:
             new_team_name = input("Please enter the new team name: ")
             team_names = list(teams_info.keys())  # Stores teams as a list
             old_team_name = team_names[selected_team_rename - 1]  # Grabs selected team
             confirmed_rename = AdditionalFunctionSportTickets.yes_or_no("\nAre you sure you want to rename the team "
-                                                                        "from " + old_team_name + " to " +
-                                                                        new_team_name + "?: \n(1) Yes \n(2) No\n")
+                                                                        "from %s to %s?: \n(1) Yes \n(2) No\n"
+                                                                        % (old_team_name, new_team_name))
 
             # If confirmed, rename team
             if confirmed_rename == 1:
@@ -109,7 +109,7 @@ def rename_team(teams_info):
 
                 print("\nThe team has successfully been renamed...")
                 for index, team_name in enumerate(teams_info.keys()):  # Loops through updated teams list
-                    print("(" + str(index + 1) + ") " + team_name)
+                    print("(%d) %s" % ((index + 1), team_name))
                 return 1
 
 
@@ -126,7 +126,7 @@ def add_seats(selected_team_name, seats, prices, amount):
         new_price = input("Enter the price for the new seat: ")
         new_price = float(new_price)  # Convert to float
 
-        confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new seat and price:\n\t %s -> %.2f"
+        confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new seat and price:\n\t %s -> $%.2f"
                                                                  "\nIs this correct?: \n(1) Yes \n(2) No\n" %
                                                                  (new_seat, new_price))
         # If confirmed name and prices, add to end of dictionary list
@@ -144,10 +144,10 @@ def add_seats(selected_team_name, seats, prices, amount):
 # This function will remove seats from the sports team dictionary for the customers
 def delete_seats(selected_team_name, seats, prices, amount):
     while True:
-        print("\nHere is the list of seats for the " + selected_team_name + ":")
+        print("\nHere is the list of seats for the %s:" % selected_team_name)
         # Lists selected sports teams seating
         for index, seat_names in enumerate(seats):
-            print("(" + str(index + 1) + ") " + seat_names)
+            print("(%d) %s" % ((index + 1), seat_names))
 
         seat_selected = input("Which seat would you like to remove or 0 to go back?: ")
 
@@ -156,7 +156,7 @@ def delete_seats(selected_team_name, seats, prices, amount):
             break
 
         # Check for valid input by admin
-        seat_index = AdditionalFunctionSportTickets.integer_validation_array(seat_selected, seats)
+        seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, len(seats))
 
         # If valid, move to rename process
         if seat_index is not None:
@@ -172,7 +172,7 @@ def delete_seats(selected_team_name, seats, prices, amount):
                 print("\nSeat and price has successfully been deleted...")
                 # Lists selected sports teams seating
                 for index, seat_names in enumerate(seats):
-                    print("(" + str(index + 1) + ") " + seat_names)
+                    print("(%d) %s" % ((index + 1), seat_names))
                 return 1  # Returns to ask admin if they would like to modify more
 
 
@@ -182,7 +182,7 @@ def rename_seats(selected_team_name, seats, prices, amount):
         print("\nHere is the list of seats for the %s:" % selected_team_name)
         # Lists selected sports teams seating
         for index, seat_names in enumerate(seats):
-            print("(" + str(index + 1) + ") " + seat_names)
+            print("(%d) %s" % ((index + 1), seat_names))
 
         seat_selected = input("Which seat would you like to rename or 0 to go back?: ")
 
@@ -191,7 +191,7 @@ def rename_seats(selected_team_name, seats, prices, amount):
             break
 
         # Check for valid input by admin
-        seat_index = AdditionalFunctionSportTickets.integer_validation_array(seat_selected, seats)
+        seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, len(seats))
 
         # If valid, move to rename process
         if seat_index is not None:
@@ -218,7 +218,7 @@ def add_package(package_deals):
             package_deals.append(package_name)  # Adds to package list
             print("Package deal has successfully been added...")
             for position, index in enumerate(range(len(package_deals))):  # Displays newly added package
-                print("(" + str(position + 1) + ") " + package_deals[index])
+                print("(%d) %s" % ((position + 1), package_deals[index]))
             return 1
 
 
@@ -227,7 +227,7 @@ def delete_package(package_deals):
     while True:
         print("\nBelow is the current package deals:")
         for position, index in enumerate(range(len(package_deals))):
-            print("(" + str(position + 1) + ") " + package_deals[index])
+            print("(%d) %s" % ((position + 1), package_deals[index]))
         package_selected = input("Which package deal would you like to delete or 0 to go back?: ")
 
         if package_selected.isdigit():
@@ -246,7 +246,7 @@ def delete_package(package_deals):
                     del package_deals[package_index - 1]  # Deletes Package Deal
                     print("Package deal has successfully been deleted...")
                     for position, index in enumerate(range(len(package_deals))):  # Displays updated package deals
-                        print("(" + str(position + 1) + ") " + package_deals[index])
+                        print("(%d) %s" % ((position + 1), package_deals[index]))
                     return 1
             else:
                 print("Input out of range!")
@@ -259,7 +259,7 @@ def rename_package(package_deals):
     while True:
         print("\nBelow is the current package deals:")
         for position, index in enumerate(range(len(package_deals))):
-            print("(" + str(position + 1) + ") " + package_deals[index])
+            print("(%d) %s" % ((position + 1), package_deals[index]))
         package_selected = input("Which package deal would you like to rename or 0 to go back?: ")
 
         if package_selected.isdigit():
@@ -282,7 +282,7 @@ def rename_package(package_deals):
                     package_deals[package_index - 1] = new_package_deal_name  # Renames Package Deal
                     print("Package deal has successfully been renamed...")
                     for position, index in enumerate(range(len(package_deals))):  # Displays updated package deals
-                        print("(" + str(position + 1) + ") " + package_deals[index])
+                        print("(%d) %s" % ((position + 1), package_deals[index]))
                     return 1
             else:
                 print("Input out of range!")
@@ -303,7 +303,7 @@ def changing_seat_name(seat_index_valid, teams_seats):
         teams_seats[seat_index_valid - 1] = new_seat_name  # Replaces old seat with new seat
         print("The renamed seat has successfully been updated...")
         for index, seat_names in enumerate(teams_seats):  # Displays seats with newly named seat
-            print("(" + str(index + 1) + ") " + seat_names)
+            print("(%d) %s" % ((index + 1), seat_names))
         return 1  # Used to return to start of seat editor
 
 
@@ -331,7 +331,7 @@ def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, tea
                     print("The seating price has successfully been updated...")
                     # Displays all seats with new seating price updated
                     for index, seat_names in enumerate(seats_inner):
-                        print("(" + str(index + 1) + ") " + seat_names + " -> {:.2f}".format(prices_inner[index]))
+                        print("(%d) %s -> $%.2f" % ((index + 1), seat_names, prices_inner[index]))
                     return 1
             else:
                 print("Input out of range!")

@@ -15,7 +15,7 @@ def select_team(teams_list):
         team_selection_number = input(
             "\nWhich sports team are we looking to purchase tickets from? (Enter the number): ")
 
-        team_number = AdditionalFunctionSportTickets.integer_validation_array(team_selection_number, teams_list)
+        team_number = AdditionalFunctionSportTickets.integer_validation(team_selection_number, len(teams_list))
 
         # If valid selection, return number
         if team_number is not None:
@@ -27,7 +27,7 @@ def seat_selection(team_index, teams_data_info):
     while True:
         selected_team = list(teams_data_info.keys())[team_index - 1]  # Converts dictionary keys into a list, stores it
         team_details = teams_data_info[selected_team]  # Retrieves appropriate seats and prices and stores it
-        print("\nWelcome to the %s ticket service!" % selected_team)
+        print("\nWelcome to the %s ticket service!\n" % selected_team)
 
         # Pull the respected seats and prices and stores them
         seats = team_details["Seats"]
@@ -36,19 +36,19 @@ def seat_selection(team_index, teams_data_info):
         # If there is a sale going on, let customer know
         if "Percentage" in team_details:
             sales_percentage = team_details["Percentage"]
-            print("\nAll tickets are %.0f%% off today" % (sales_percentage * 100))
+            print("All tickets are %.0f%% off today\n" % (sales_percentage * 100))
         # If there is a charity going on, let customers know
         if "Charity" in team_details:
             charity_percentage = team_details["Charity"]
-            print("\nWe will be giving %.0f%% of your purchase to charity today!" % (charity_percentage * 100))
+            print("We will be giving %.0f%% of your purchase to charity today!\n" % (charity_percentage * 100))
 
         # Loop through the seating's and prices offered for selected team
         for position, index in enumerate(range(len(seats))):
-            print("\n(%d) %s -> $%.2f" % ((position + 1), seats[index], prices[index]))
+            print("(%d) %s -> $%.2f" % ((position + 1), seats[index], prices[index]))
 
         user_seat_selection = input("\nWhich seat level would you like to purchase? (Enter the number): ")
 
-        seat_number = AdditionalFunctionSportTickets.integer_validation_array(user_seat_selection, seats)
+        seat_number = AdditionalFunctionSportTickets.integer_validation(user_seat_selection, len(seats))
 
         # If valid selection, return number
         if seat_number is not None:
@@ -64,7 +64,7 @@ def ticket_quantity(seat_price, package_deals):
 
         user_package_selected = input("Which package deal would you like to purchase? (Enter the number): ")
 
-        package_number = AdditionalFunctionSportTickets.integer_validation_array(user_package_selected, package_deals)
+        package_number = AdditionalFunctionSportTickets.integer_validation(user_package_selected, len(package_deals))
 
         if package_number is not None:
             return package_number

@@ -1,16 +1,16 @@
 # This function checks for integer and range of selection validation
-def integer_validation_array(user_input, length_of_list):
+def integer_validation(user_input, length_of_list):
 
     # If user puts in an integer, then convert to integer
     if user_input.isdigit():
         input_number = int(user_input)
         # If user puts in valid input, return integer
-        if 1 <= input_number <= len(length_of_list):
+        if 1 <= input_number <= length_of_list:
             return input_number
         else:
             print("Invalid selection!")
     else:
-        print("Input must be a number!")
+        print("Input must be an integer!")
 
 
 # This function is used for all yes and no prompts and returns the selection

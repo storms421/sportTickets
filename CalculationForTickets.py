@@ -70,4 +70,3 @@ def percentage_valid(prompt):
                 print("Input is out of range!")
         else:
             print("Input is not an integer!")
-

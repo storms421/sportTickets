@@ -49,7 +49,7 @@ def menu(admin_menu):
         admin_menu_selection = input("What would you like to do?: ")
 
         # Take in valid menu selection
-        valid_menu_selection = AdditionalFunctionSportTickets.integer_validation_array(admin_menu_selection, admin_menu)
+        valid_menu_selection = AdditionalFunctionSportTickets.integer_validation(admin_menu_selection, len(admin_menu))
 
         # Return valid selection
         if valid_menu_selection is not None:
@@ -69,7 +69,7 @@ def sales_event(teams_info, package_deals):
             break
 
         # Checks for valid input
-        valid_team_selection = AdditionalFunctionSportTickets.integer_validation_array(team_selected, teams_info)
+        valid_team_selection = AdditionalFunctionSportTickets.integer_validation(team_selected, len(teams_info))
 
         # Once input is valid, ask for sales percentage
         if valid_team_selection is not None:
@@ -112,7 +112,7 @@ def charity_event(teams_info, package_deals):
             break
 
         # Checks for valid input
-        valid_team_selection = AdditionalFunctionSportTickets.integer_validation_array(team_selected, teams_info)
+        valid_team_selection = AdditionalFunctionSportTickets.integer_validation(team_selected, len(teams_info))
 
         # Once input is valid, ask for charity percentage
         if valid_team_selection is not None:
@@ -181,7 +181,7 @@ def seating_name_change(teams_info, package_deals):
             break
 
         # Check for valid input by admin
-        team_index = AdditionalFunctionSportTickets.integer_validation_array(team_selected, teams_info)
+        team_index = AdditionalFunctionSportTickets.integer_validation(team_selected, len(teams_info))
 
         if team_index is not None:
             # Convert dictionary keys into list, stores it
@@ -230,7 +230,7 @@ def change_seating_prices(teams_info, package_deals):
         print("\nWelcome to Seating Price Editor!")
         # Lists sport teams
         for index, team_names in enumerate(teams_info.keys()):
-            print("(" + str(index + 1) + ") " + team_names)
+            print("(%d) %s" % ((index + 1), team_names))
 
         team_selected = input("Which team needs seat price change or 0 to go back to the main menu?: ")
 
@@ -239,7 +239,7 @@ def change_seating_prices(teams_info, package_deals):
             return
 
         # Check for valid input by admin
-        team_index = AdditionalFunctionSportTickets.integer_validation_array(team_selected, teams_info)
+        team_index = AdditionalFunctionSportTickets.integer_validation(team_selected, len(teams_info))
 
         if team_index is not None:
             selected_team_name = list(teams_info.keys())[team_index - 1]  # Convert dictionary keys into list, stores it
@@ -248,7 +248,7 @@ def change_seating_prices(teams_info, package_deals):
             prices = team_details["Prices"]  # Retrieves price list
 
             while True:
-                print("\nHere is the list of seats for the " + selected_team_name + ":")
+                print("\nHere is the list of seats for the %s:" % selected_team_name)
                 # Lists selected sports teams seating and prices
                 for index, seat_names in enumerate(seats):
                     print("(%d) %s -> $%.2f" % ((index + 1), seat_names, prices[index]))
@@ -260,7 +260,7 @@ def change_seating_prices(teams_info, package_deals):
                     break
 
                 # Check for valid input by admin
-                seat_index = AdditionalFunctionSportTickets.integer_validation_array(seat_selected, seats)
+                seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, len(seats))
 
                 # If valid, move to price change process
                 if seat_index is not None:
