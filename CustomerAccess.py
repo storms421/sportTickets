@@ -19,12 +19,20 @@ def select_team(teams_list, packages):
         # If valid selection, return number
         if team_number is not None:
             if team_number == 0:  # Exit to main screen if 0
-                return 0, 0, 0
+                return 0, 0, 0, 0, 0, 0
 
-            return_information, seat_selected = seat_selection(team_number, teams_list, packages)  # Move to next step
+            package_number, seat_selected = seat_selection(team_number, teams_list, packages)  # Move to next step
 
-            if return_information != 0:
-                return team_number, seat_selected, return_information
+            if package_number != 0:
+                # Converts dictionary keys into a list, stores it
+                selected_team = list(teams_list.keys())[team_number - 1]
+                team_details = teams_list[selected_team]  # Retrieves appropriate seats and prices and stores it
+                seat_section = team_details["Seats"][seat_selected - 1]  # Retrieves seat section based on seat selected
+                seat_price = team_details["Prices"][seat_selected - 1]  # Retrieves seat price based on selected seat
+                total_price = seat_price * package_number  # Calculates the total
+                package_selected = packages[package_number - 1]
+
+                return selected_team, seat_section, total_price, package_selected, package_number, selected_team
 
 
 # This function is used to display all the team information and prompt for seat selection

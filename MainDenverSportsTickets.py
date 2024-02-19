@@ -70,15 +70,17 @@ while True:
     # If customer, go to purchase tickets for team
     if int(customer_read) == 1:
         print("")
-        # Needs to be restructured, specifically the receipt section will 100% need to be rewritten. Follow Admin steps
-        team_selected, seat_selected, package_selected = CustomerAccess.select_team(teams_data, seat_packages)
+        team_selected, seat_selected, total_price, package_selected, package_number, team_keys = \
+            CustomerAccess.select_team(teams_data, seat_packages)
+
         # Goes to Customer file
-        if team_selected != 0 and seat_selected != 0 and package_selected != 0:
-            is_paid = CalculationForTickets.ticket_payment(package_selected, seat_selected, teams_data, team_selected)
+        if team_selected != 0 and seat_selected != 0 and total_price != 0 and package_selected != 0 and \
+                package_number != 0 and team_keys != 0:
+            is_paid = CalculationForTickets.ticket_payment(total_price)
 
             if is_paid is not None:
-                CalculationForTickets.take_receipt(package_selected, seat_selected, teams_data, team_selected,
-                                                   seat_packages[package_selected - 1])
+                CalculationForTickets.take_receipt(team_selected, seat_selected, total_price, package_selected,
+                                                   package_number, team_keys)
 
     # If admin, go to admin to update information
     elif int(customer_read) == 2:

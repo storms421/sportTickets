@@ -2,15 +2,11 @@ import AdditionalFunctionSportTickets
 
 
 # This function will take payments from the customer to purchase tickets
-def ticket_payment(package_ticket, seat_section_selected, teams_info, team_index):
-    selected_team = list(teams_info.keys())[team_index - 1]  # Converts dictionary keys into a list, stores it
-    team_details = teams_info[selected_team]  # Retrieves appropriate seats and prices and stores it
-    seat_prices = team_details["Prices"][seat_section_selected - 1]  # Retrieves seat price based on selected seat
-    total_price = seat_prices * package_ticket  # Calculates the total
+def ticket_payment(total):
 
     # While user inputs info, loop through
     while True:
-        print("\nYour total will be ${:.2f}".format(total_price))
+        print("\nYour total will be ${:.2f}".format(total))
 
         payment_code = input("Please enter your zip code to pay or 0 to cancel transaction: ")
 
@@ -27,12 +23,7 @@ def ticket_payment(package_ticket, seat_section_selected, teams_info, team_index
 
 
 # This function will see if the user would like their receipt or not!
-def take_receipt(package_ticket, seat_section_selected, teams_info, team_index, package_selected):
-    selected_team = list(teams_info.keys())[team_index - 1]  # Converts dictionary keys into a list, stores it
-    team_details = teams_info[selected_team]  # Retrieves appropriate seats and prices and stores it
-    seat_prices = team_details["Prices"][seat_section_selected - 1]  # Retrieves seat price based on selected seat
-    seat_location = team_details["Seats"][seat_section_selected - 1]  # Retrieves seat price based on selected seat
-    total_price = seat_prices * package_ticket  # Calculates the total
+def take_receipt(team, seat, total, package, package_number, keys):
 
     print("\nThank you for your purchase!")
     receipt = AdditionalFunctionSportTickets.yes_or_no("Would you like your receipt? \n(1) Yes \n(2) No\n")
@@ -40,18 +31,18 @@ def take_receipt(package_ticket, seat_section_selected, teams_info, team_index, 
     # If user wants receipt, print it
     if receipt == 1:
         print("\nReceipt"
-              "\n\tTeam: " + selected_team +
-              "\n\tSeats: " + seat_location +
-              "\n\tPackage: " + package_selected +
-              "\n\tTotal: ${:.2f}".format(total_price))
-        if "Percentage" in team_details:
-            sales_percentage = team_details["Percentage"]  # Calls for percentage in dictionary, stores it
-            reversed_amount = (total_price / package_ticket) / (1 - sales_percentage)  # Reverses back to original price
-            saved_amount = (reversed_amount * package_ticket) - total_price  # Calculates amount saved
+              "\n\tTeam: " + team +
+              "\n\tSeats: " + seat +
+              "\n\tPackage: " + package +
+              "\n\tTotal: ${:.2f}".format(total))
+        if "Percentage" in keys:
+            sales_percentage = keys["Percentage"]  # Calls for percentage in dictionary, stores it
+            reversed_amount = (total / package_number) / (1 - sales_percentage)  # Reverses back to original price
+            saved_amount = (reversed_amount * package_number) - total  # Calculates amount saved
             print("\tYou saved: ${:.2f}".format(saved_amount))
         # If the admin added a charity event, let customer how much will be donated
-        if "Charity" in team_details:
-            charity_total = total_price * team_details["Charity"]
+        if "Charity" in keys:
+            charity_total = total * keys["Charity"]
             print("\tAmount Going to Charity: ${:.2f}".format(charity_total))
 
     print("\nEnjoy the game!")
