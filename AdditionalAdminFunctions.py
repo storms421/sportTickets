@@ -22,19 +22,21 @@ def add_team(teams_info):
             print("Let's add some seat and pricing options for this team.\n")
             # Loop for valid input
             while True:
-                seat_count = input("Enter how many seats will we be added to the new team or 0 to exit: ")
-
-                if seat_count == "0":
-                    return 1
+                seat_count = AdditionalFunctionSportTickets.integer_validation("Enter how many seats will we be added "
+                                                                               "to the new team or 0 to exit: ", 10, 0,
+                                                                               0)
 
                 # Get valid amount of seats to add
-                if seat_count.isdigit() and 0 < int(seat_count) <= 10:
+                if seat_count is not None:
+                    if seat_count == 0:
+                        return 1
+
                     team_details = teams_info[new_team]  # Retrieves appropriate seats and prices and store it
                     seats = team_details["Seats"]  # Pulls seats of selected sports team, stores it
                     prices = team_details["Prices"]  # Pulls prices of selected sports team, stores it
 
                     # Reuses function to get a set amount of seats and their prices to add to new team
-                    add_seats(team_details, seats, prices, int(seat_count))
+                    add_seats(team_details, seats, prices, seat_count)
 
                     # Return to ask if more to modify
                     return 1
@@ -49,15 +51,16 @@ def remove_team(teams_info):
         print("\nHere is the list of teams currently in the system:")
         for index, team_name in enumerate(teams_info.keys()):  # Loops through teams
             print("(%d) %s" % ((index + 1), team_name))
-        selected_team_delete = input("Which sports team would you like to delete or 0 to go back: ")
-
-        if int(selected_team_delete) == 0:
-            break
 
         # Validates Selection
-        selected_team_delete = AdditionalFunctionSportTickets.integer_validation(selected_team_delete, len(teams_info))
+        selected_team_delete = AdditionalFunctionSportTickets.integer_validation("Which sports team would you like to "
+                                                                                 "delete or 0 to go back: ",
+                                                                                 len(teams_info), 1, 0)
 
         if selected_team_delete is not None:
+            if selected_team_delete == 0:
+                break
+
             team_names = list(teams_info.keys())  # Stores teams as a list
             name_of_team = team_names[selected_team_delete - 1]  # Grabs selected team
             confirmed_deletion = AdditionalFunctionSportTickets.yes_or_no("\nAre you sure you want to delete the team, "
@@ -78,16 +81,16 @@ def rename_team(teams_info):
         print("\nHere is the list of teams currently in the system:")
         for index, team_name in enumerate(teams_info.keys()):  # Loops through teams
             print("(%d) %s" % ((index + 1), team_name))
-        selected_team_rename = input("Which sports team would you like to rename or 0 to go back: ")
-
-        # Goes back to submenu
-        if int(selected_team_rename) == 0:
-            break
 
         # Validates selection
-        selected_team_rename = AdditionalFunctionSportTickets.integer_validation(selected_team_rename, len(teams_info))
+        selected_team_rename = AdditionalFunctionSportTickets.integer_validation("Which sports team would you like to "
+                                                                                 "rename or 0 to go back: ",
+                                                                                 len(teams_info), 1, 0)
 
         if selected_team_rename is not None:
+            if selected_team_rename == 0:
+                break
+
             new_team_name = input("Please enter the new team name: ")
             team_names = list(teams_info.keys())  # Stores teams as a list
             old_team_name = team_names[selected_team_rename - 1]  # Grabs selected team
@@ -123,8 +126,7 @@ def add_seats(selected_team_name, seats, prices, amount):
         if new_seat == "0":
             break
 
-        new_price = input("Enter the price for the new seat: ")
-        new_price = float(new_price)  # Convert to float
+        new_price = AdditionalFunctionSportTickets.integer_validation("Enter the price for the new seat: ", 1000, 0, 1)
 
         confirmed_add = AdditionalFunctionSportTickets.yes_or_no("\nBelow is the new seat and price:\n\t %s -> $%.2f"
                                                                  "\nIs this correct?: \n(1) Yes \n(2) No\n" %
@@ -149,17 +151,15 @@ def delete_seats(selected_team_name, seats, prices, amount):
         for index, seat_names in enumerate(seats):
             print("(%d) %s" % ((index + 1), seat_names))
 
-        seat_selected = input("Which seat would you like to remove or 0 to go back?: ")
-
-        # Return to submenu
-        if seat_selected == "0":
-            break
-
         # Check for valid input by admin
-        seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, len(seats))
+        seat_index = AdditionalFunctionSportTickets.integer_validation("Which seat would you like to remove or 0 to go "
+                                                                       "back?: ", len(seats), 1, 0)
 
         # If valid, move to rename process
         if seat_index is not None:
+            if seat_index == 0:
+                break
+
             seat_name = seats[int(seat_index) - 1]
             confirmed_deletion = AdditionalFunctionSportTickets.yes_or_no("\nAre you sure you want to delete the seat, "
                                                                           "%s?: \n(1) Yes \n(2) No\n" % seat_name)
@@ -184,17 +184,16 @@ def rename_seats(selected_team_name, seats, prices, amount):
         for index, seat_names in enumerate(seats):
             print("(%d) %s" % ((index + 1), seat_names))
 
-        seat_selected = input("Which seat would you like to rename or 0 to go back?: ")
-
-        # Return to submenu
-        if seat_selected == "0":
-            break
-
         # Check for valid input by admin
-        seat_index = AdditionalFunctionSportTickets.integer_validation(seat_selected, len(seats))
+        seat_index = AdditionalFunctionSportTickets.integer_validation("Which seat would you like to rename or 0 to go "
+                                                                       "back?: ", len(seats), 1, 0)
 
         # If valid, move to rename process
         if seat_index is not None:
+            # Return to submenu
+            if seat_index == 0:
+                break
+
             confirmed_rename = changing_seat_name(seat_index, seats)
             # Goes back
             if confirmed_rename == 1:
@@ -311,29 +310,27 @@ def changing_seat_name(seat_index_valid, teams_seats):
 def seating_price_change_update(seats_inner, seat_index_inner, prices_inner, teams_info_inner,
                                 selected_team_name_inner):
     while True:
-        price_update = input("Enter the new price for the seat %s or 0 to go back: " % seats_inner[seat_index_inner-1])
-
-        # Return to team selection
-        if price_update == "0":
+        price_update = AdditionalFunctionSportTickets.integer_validation("Enter the new price for the seat %s or 0 to "
+                                                                         "go back: " % seats_inner[
+                                                                             seat_index_inner - 1],
+                                                                         1000, 1, 1)
+        if price_update == 0:
             break
 
-        if price_update.isdigit():
-            price_update = float(price_update)
-            if price_update > 0:  # If price is greater than 0, ask to confirm price
-                is_confirmed = AdditionalFunctionSportTickets.yes_or_no(
-                    "The price $%.2f for the seat %s will be updated to the price $%.2f. Is this correct? \n(1) Yes "
-                    "\n(2) No\n" % (prices_inner[seat_index_inner - 1], seats_inner[seat_index_inner-1], price_update))
+        is_confirmed = AdditionalFunctionSportTickets.yes_or_no(
+            "The price $%.2f for the seat %s will be updated to the price $%.2f. Is this correct? \n(1) Yes "
+            "\n(2) No\n" % (prices_inner[seat_index_inner - 1], seats_inner[seat_index_inner - 1], price_update))
 
-                # If seat is confirmed, update
-                if int(is_confirmed) == 1:
-                    prices_inner[seat_index_inner - 1] = price_update  # Updates the price in the index selected
-                    teams_info_inner[selected_team_name_inner]["Prices"] = prices_inner  # Updates the price in dict.
-                    print("The seating price has successfully been updated...")
-                    # Displays all seats with new seating price updated
-                    for index, seat_names in enumerate(seats_inner):
-                        print("(%d) %s -> $%.2f" % ((index + 1), seat_names, prices_inner[index]))
-                    return 1
-            else:
-                print("Input out of range!")
-        else:
-            print("Input must be a number!")
+        # If seat is confirmed, update
+        if int(is_confirmed) == 1:
+            prices_inner[seat_index_inner - 1] = price_update  # Updates the price in the index selected
+            teams_info_inner[selected_team_name_inner]["Prices"] = prices_inner  # Updates the price in dict.
+            print("The seating price has successfully been updated...")
+            # Displays all seats with new seating price updated
+            for index, seat_names in enumerate(seats_inner):
+                print("(%d) %s -> $%.2f" % ((index + 1), seat_names, prices_inner[index]))
+            return 1
+
+
+# For float type data, try implementing a try catch system for the validation function. Also we will rename
+# integer_validation when we go through the system to restructure all the validations in the program

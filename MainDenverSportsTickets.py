@@ -45,7 +45,6 @@ teams_data = {
 
 }  # End of teams_data dictionary
 
-
 # Start of menu_functions
 # This dictionary will allow for functions to be called based on user selection (simplified if/elif/else)
 menu_functions = {
@@ -71,15 +70,16 @@ while True:
     # If customer, go to purchase tickets for team
     if int(customer_read) == 1:
         print("")
-        team_selected = CustomerAccess.select_team(teams_data)  # Goes to Customer file
-        seat_selected = CustomerAccess.seat_selection(team_selected, teams_data)
-        package_selected = CustomerAccess.ticket_quantity(seat_selected, seat_packages)
-        is_paid = CalculationForTickets.ticket_payment(package_selected, seat_selected, teams_data, team_selected)
+        # Needs to be restructured, specifically the receipt section will 100% need to be rewritten. Follow Admin steps
+        team_selected, seat_selected, package_selected = CustomerAccess.select_team(teams_data, seat_packages)
+        # Goes to Customer file
+        if team_selected != 0 and seat_selected != 0 and package_selected != 0:
+            is_paid = CalculationForTickets.ticket_payment(package_selected, seat_selected, teams_data, team_selected)
 
-        if is_paid is not None:
-            CalculationForTickets.take_receipt(package_selected, seat_selected, teams_data, team_selected,
-                                               seat_packages[package_selected - 1])
-            
+            if is_paid is not None:
+                CalculationForTickets.take_receipt(package_selected, seat_selected, teams_data, team_selected,
+                                                   seat_packages[package_selected - 1])
+
     # If admin, go to admin to update information
     elif int(customer_read) == 2:
         print("")

@@ -2,7 +2,7 @@ import AdditionalFunctionSportTickets
 
 
 # This function is used to select teams for purchasing tickets
-def select_team(teams_list):
+def select_team(teams_list, packages):
     # While user is selecting, loop through teams
     while True:
         # Lists all Colorado teams in array
@@ -12,18 +12,23 @@ def select_team(teams_list):
             print("(%d) %s" % ((index + 1), team_names))
 
         # Looks for customers selection and returns when matched
-        team_selection_number = input(
-            "\nWhich sports team are we looking to purchase tickets from? (Enter the number): ")
-
-        team_number = AdditionalFunctionSportTickets.integer_validation(team_selection_number, len(teams_list))
+        team_number = AdditionalFunctionSportTickets.integer_validation("\nWhich sports team are we looking to purchase"
+                                                                        " tickets from? (Enter the number or 0 to exit)"
+                                                                        ": ", len(teams_list), 1, 0)
 
         # If valid selection, return number
         if team_number is not None:
-            return team_number
+            if team_number == 0:  # Exit to main screen if 0
+                return 0, 0, 0
+
+            return_information, seat_selected = seat_selection(team_number, teams_list, packages)  # Move to next step
+
+            if return_information != 0:
+                return team_number, seat_selected, return_information
 
 
 # This function is used to display all the team information and prompt for seat selection
-def seat_selection(team_index, teams_data_info):
+def seat_selection(team_index, teams_data_info, packages):
     while True:
         selected_team = list(teams_data_info.keys())[team_index - 1]  # Converts dictionary keys into a list, stores it
         team_details = teams_data_info[selected_team]  # Retrieves appropriate seats and prices and stores it
@@ -46,25 +51,43 @@ def seat_selection(team_index, teams_data_info):
         for position, index in enumerate(range(len(seats))):
             print("(%d) %s -> $%.2f" % ((position + 1), seats[index], prices[index]))
 
-        user_seat_selection = input("\nWhich seat level would you like to purchase? (Enter the number): ")
-
-        seat_number = AdditionalFunctionSportTickets.integer_validation(user_seat_selection, len(seats))
+        seat_number = AdditionalFunctionSportTickets.integer_validation("\nWhich seat level would you like to purchase?"
+                                                                        " (Enter the number or 0 to go back): ",
+                                                                        len(seats), 1, 0)
 
         # If valid selection, return number
         if seat_number is not None:
-            return seat_number
+            if seat_number == 0:  # Go back
+                return 0, seat_number
+
+            package_number_return = ticket_quantity(packages)  # Move to next step
+
+            if package_number_return != 0:
+                return package_number_return, seat_number
 
 
 # This function grabs the package deal selected by user and returns to main
-def ticket_quantity(seat_price, package_deals):
+def ticket_quantity(package_deals):
     while True:
         print("\nBelow is our package deals!")
         for position, index in enumerate(range(len(package_deals))):
             print("(%d) %s" % ((position + 1), package_deals[index]))
 
-        user_package_selected = input("Which package deal would you like to purchase? (Enter the number): ")
-
-        package_number = AdditionalFunctionSportTickets.integer_validation(user_package_selected, len(package_deals))
+        package_number = AdditionalFunctionSportTickets.integer_validation("Which package deal would you like to "
+                                                                           "purchase? (Enter the number or 0 to go back"
+                                                                           "): ", len(package_deals), 1, 0)
 
         if package_number is not None:
-            return package_number
+            if package_number == 0:
+                return 0
+            else:
+                return package_number
+
+
+
+# Thr problem with the back button in the customer section is due to calls within main. Need to interloop with
+# everything. Don't believe information needs to be saved anyways considering they want to redo the previous step and
+# Python already takes care of replacing the same variables.
+
+# Too tired/lazy, but use 0/1 on/off switch for back return button. Probably could just do return 1 when step is
+# completed and break if not. Should work fine, just need to restructure it all
