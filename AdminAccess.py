@@ -48,8 +48,8 @@ def menu(admin_menu):
             print("(%d) %s" % ((position + 1), admin_menu[index]))
 
         # Take in valid menu selection
-        valid_menu_selection = AdditionalFunctionSportTickets.integer_validation("What would you like to do?: ",
-                                                                                 len(admin_menu), 1, 0)
+        valid_menu_selection = AdditionalFunctionSportTickets.input_validation("What would you like to do?: ",
+                                                                               len(admin_menu), 1, 0)
 
         # Return valid selection
         if valid_menu_selection is not None:
@@ -64,9 +64,9 @@ def sales_event(teams_info, package_deals):
             print("(%d) %s" % ((index + 1), team_names))
 
         # Checks for valid input
-        valid_team_selection = AdditionalFunctionSportTickets.integer_validation("Which team has a sale going on or 0 "
-                                                                                 "to go back to the main menu?: ",
-                                                                                 len(teams_info), 1, 0)
+        valid_team_selection = AdditionalFunctionSportTickets.input_validation("Which team has a sale going on or 0 "
+                                                                               "to go back to the main menu?: ",
+                                                                               len(teams_info), 1, 0)
 
         # Once input is valid, ask for sales percentage
         if valid_team_selection is not None:
@@ -108,9 +108,9 @@ def charity_event(teams_info, package_deals):
             print("(%d) %s" % ((index + 1), team_names))
 
         # Checks for valid input
-        valid_team_selection = AdditionalFunctionSportTickets.integer_validation("Which team has a charity going on or "
-                                                                                 "0 to go back to the main menu?: ",
-                                                                                 len(teams_info), 1, 0)
+        valid_team_selection = AdditionalFunctionSportTickets.input_validation("Which team has a charity going on or "
+                                                                               "0 to go back to the main menu?: ",
+                                                                               len(teams_info), 1, 0)
 
         # Once input is valid, ask for charity percentage
         if valid_team_selection is not None:
@@ -138,9 +138,9 @@ def charity_event(teams_info, package_deals):
 def team_editor(teams_info, package_deals):
     while True:
         print("\nWelcome to the Team Name Editor!")
-        submenu_selection = AdditionalFunctionSportTickets.integer_validation("(1) Add a Team\n(2) Delete a Team\n(3) "
-                                                                              "Rename a Team\nWhat would you like to "
-                                                                              "do or 0 to go back?: ", 3, 1, 0)
+        submenu_selection = AdditionalFunctionSportTickets.input_validation("(1) Add a Team\n(2) Delete a Team\n(3) "
+                                                                            "Rename a Team\nWhat would you like to "
+                                                                            "do or 0 to go back?: ", 3, 1, 0)
         if submenu_selection is not None:
             if submenu_selection == 0:
                 break
@@ -169,8 +169,8 @@ def seating_name_change(teams_info, package_deals):
             print("(%d) %s" % ((index + 1), team_names))
 
         # Check for valid input by admin
-        team_index = AdditionalFunctionSportTickets.integer_validation("Which team needs a seat edit or 0 to go back to"
-                                                                       " the main menu?: ", len(teams_info), 1, 0)
+        team_index = AdditionalFunctionSportTickets.input_validation("Which team needs a seat edit or 0 to go back to"
+                                                                     " the main menu?: ", len(teams_info), 1, 0)
 
         if team_index is not None:
             if team_index == 0:
@@ -184,11 +184,11 @@ def seating_name_change(teams_info, package_deals):
 
             while True:
                 print("\nHere are the seat editing options for the %s:" % selected_team_name)
-                submenu_selection = AdditionalFunctionSportTickets.integer_validation("(1) Add a Seat\n(2) Delete a "
-                                                                                      "Seat\n(3) Rename a Seat\n"
-                                                                                      "What would you like to do or 0 "
-                                                                                      "to go back?: ",
-                                                                                      3, 1, 0)
+                submenu_selection = AdditionalFunctionSportTickets.input_validation("(1) Add a Seat\n(2) Delete a "
+                                                                                    "Seat\n(3) Rename a Seat\n"
+                                                                                    "What would you like to do or 0 "
+                                                                                    "to go back?: ",
+                                                                                    3, 1, 0)
                 if submenu_selection is not None:
                     if submenu_selection == 0:
                         break
@@ -218,9 +218,9 @@ def change_seating_prices(teams_info, package_deals):
             print("(%d) %s" % ((index + 1), team_names))
 
         # Check for valid input by admin
-        team_index = AdditionalFunctionSportTickets.integer_validation("Which team needs seat price change or 0 to go "
-                                                                       "back to the main menu?: ", len(teams_info), 1,
-                                                                       0)
+        team_index = AdditionalFunctionSportTickets.input_validation("Which team needs seat price change or 0 to go "
+                                                                     "back to the main menu?: ", len(teams_info), 1,
+                                                                     0)
 
         if team_index is not None:
             if team_index == 0:
@@ -238,8 +238,8 @@ def change_seating_prices(teams_info, package_deals):
                     print("(%d) %s -> $%.2f" % ((index + 1), seat_names, prices[index]))
 
                 # Check for valid input by admin
-                seat_index = AdditionalFunctionSportTickets.integer_validation("Which seat will need a price change or "
-                                                                               "0 to go back?: ", len(seats), 1, 0)
+                seat_index = AdditionalFunctionSportTickets.input_validation("Which seat will need a price change or "
+                                                                             "0 to go back?: ", len(seats), 1, 0)
 
                 # If valid, move to price change process
                 if seat_index is not None:
@@ -268,10 +268,10 @@ def change_package_deals(teams_info, package_deals):
     while True:
         print("\nWelcome to Package Deals Editor!")
 
-        submenu_selection = AdditionalFunctionSportTickets.integer_validation("(1) Add a Package\n(2) Delete a Package"
-                                                                              "\n(3) Rename a Package\nWhat would you "
-                                                                              "like to do or 0 to go back to the main "
-                                                                              "menu?: ", len(package_deals) - 1, 1, 0)
+        submenu_selection = AdditionalFunctionSportTickets.input_validation("(1) Add a Package\n(2) Delete a Package"
+                                                                            "\n(3) Rename a Package\nWhat would you "
+                                                                            "like to do or 0 to go back to the main "
+                                                                            "menu?: ", len(package_deals) - 1, 1, 0)
 
         if submenu_selection is not None:
             if submenu_selection == 0:
@@ -298,6 +298,3 @@ def view_teams_info(teams_info, package_deals):
         prices = team_details["Prices"]  # Retrieves price list
         for index, seat_names in enumerate(seats):  # Loops through selected sports teams seating and prices
             print("\t(%d) %s -> $%.2f" % ((index + 1), seat_names, prices[index]))
-
-# Note for inputs. Make sure they get validated as digits when needed. If not done, error will be thrown. Check through
-# all the code

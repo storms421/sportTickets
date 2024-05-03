@@ -12,9 +12,9 @@ def select_team(teams_list, packages):
             print("(%d) %s" % ((index + 1), team_names))
 
         # Looks for customers selection and returns when matched
-        team_number = AdditionalFunctionSportTickets.integer_validation("\nWhich sports team are we looking to purchase"
-                                                                        " tickets from? (Enter the number or 0 to exit)"
-                                                                        ": ", len(teams_list), 1, 0)
+        team_number = AdditionalFunctionSportTickets.input_validation("\nWhich sports team are we looking to purchase"
+                                                                      " tickets from? (Enter the number or 0 to exit)"
+                                                                      ": ", len(teams_list), 1, 0)
 
         # If valid selection, return number
         if team_number is not None:
@@ -32,7 +32,7 @@ def select_team(teams_list, packages):
                 total_price = seat_price * package_number  # Calculates the total
                 package_selected = packages[package_number - 1]
 
-                return selected_team, seat_section, total_price, package_selected, package_number, selected_team
+                return selected_team, seat_section, total_price, package_selected, package_number, team_details
 
 
 # This function is used to display all the team information and prompt for seat selection
@@ -59,9 +59,9 @@ def seat_selection(team_index, teams_data_info, packages):
         for position, index in enumerate(range(len(seats))):
             print("(%d) %s -> $%.2f" % ((position + 1), seats[index], prices[index]))
 
-        seat_number = AdditionalFunctionSportTickets.integer_validation("\nWhich seat level would you like to purchase?"
-                                                                        " (Enter the number or 0 to go back): ",
-                                                                        len(seats), 1, 0)
+        seat_number = AdditionalFunctionSportTickets.input_validation("\nWhich seat level would you like to purchase?"
+                                                                      " (Enter the number or 0 to go back): ",
+                                                                      len(seats), 1, 0)
 
         # If valid selection, return number
         if seat_number is not None:
@@ -70,6 +70,7 @@ def seat_selection(team_index, teams_data_info, packages):
 
             package_number_return = ticket_quantity(packages)  # Move to next step
 
+            # Returns information
             if package_number_return != 0:
                 return package_number_return, seat_number
 
@@ -81,21 +82,12 @@ def ticket_quantity(package_deals):
         for position, index in enumerate(range(len(package_deals))):
             print("(%d) %s" % ((position + 1), package_deals[index]))
 
-        package_number = AdditionalFunctionSportTickets.integer_validation("Which package deal would you like to "
-                                                                           "purchase? (Enter the number or 0 to go back"
-                                                                           "): ", len(package_deals), 1, 0)
-
+        package_number = AdditionalFunctionSportTickets.input_validation("Which package deal would you like to "
+                                                                         "purchase? (Enter the number or 0 to go back"
+                                                                         "): ", len(package_deals), 1, 0)
+        # Determines to go back a step or return information
         if package_number is not None:
             if package_number == 0:
                 return 0
             else:
                 return package_number
-
-
-
-# Thr problem with the back button in the customer section is due to calls within main. Need to interloop with
-# everything. Don't believe information needs to be saved anyways considering they want to redo the previous step and
-# Python already takes care of replacing the same variables.
-
-# Too tired/lazy, but use 0/1 on/off switch for back return button. Probably could just do return 1 when step is
-# completed and break if not. Should work fine, just need to restructure it all
